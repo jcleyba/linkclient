@@ -1,38 +1,102 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Form, Input, Button, Header, Segment } from 'semantic-ui-react';
+import {
+  Form,
+  Input,
+  Button,
+  Header,
+  Segment,
+  Message,
+} from 'semantic-ui-react';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
 
 class Login extends React.Component {
+  state = {
+    email: '',
+    password: '',
+    error: '',
+  };
+
+  onInputChange = ({ target }) => {
+    this.setState({ [target.name]: target.value, error: '' });
+  };
+
   componentDidMount() {
     sessionStorage.clear();
   }
 
-  onSubmit = e => {
-    e.preventDefault();
-    sessionStorage.setItem('token', '123');
-    this.props.history.push('/');
+  onCompleted = ({ login }) => {
+    if (login) {
+      sessionStorage.setItem('token', login.token);
+      this.props.history.push('/');
+    } else {
+      this.setState({ error: 'Email o contraseña inválidos.' });
+    }
   };
 
   render() {
+    const { email, password, error } = this.state;
+
     return (
       <div>
         <Segment>
           <Header>Login</Header>
-          <Form onSubmit={this.onSubmit}>
-            <Form.Field>
-              <label>Email</label>
-              <Input type="email" placeholder="john@smith.com" />
-            </Form.Field>
-            <Form.Field>
-              <label>Password</label>
-              <Input type="password" placeholder="Password" />
-            </Form.Field>
-            <Button type="submit">Submit</Button>
-          </Form>
+          <Mutation
+            mutation={LOGIN_MUTATION}
+            variables={{ email, password }}
+            onCompleted={data => this.onCompleted(data)}
+          >
+            {(login, { loading, error: FormError }) => (
+              <Form onSubmit={login} error={!!error}>
+                {!!error ? (
+                  <Message error header="Error" content={error} />
+                ) : null}
+                <Form.Field>
+                  <label>Email</label>
+                  <Input
+                    required
+                    type="email"
+                    placeholder="john@smith.com"
+                    name="email"
+                    value={email}
+                    onChange={this.onInputChange}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <label>Password</label>
+                  <Input
+                    required
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    value={password}
+                    onChange={this.onInputChange}
+                  />
+                </Form.Field>
+                <Button
+                  type="submit"
+                  primary
+                  disabled={!email || !password}
+                  loading={loading}
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Mutation>
         </Segment>
       </div>
     );
   }
 }
 
+const LOGIN_MUTATION = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      token
+    }
+  }
+`;
 export default withRouter(Login);
