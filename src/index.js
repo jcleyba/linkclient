@@ -8,7 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: 'https://linkapigateway.now.sh/',
 });
 
 const Client = () => (
