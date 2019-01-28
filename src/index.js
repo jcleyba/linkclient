@@ -1,3 +1,4 @@
+import { config as dotenvConfig } from 'dotenv';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
@@ -6,9 +7,10 @@ import './index.css';
 import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
+dotenvConfig();
 
 const client = new ApolloClient({
-  uri: 'https://linkapigateway.now.sh/',
+  uri: process.env.REACT_APP_GATEWAY_URI,
 });
 
 const Client = () => (

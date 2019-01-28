@@ -47,10 +47,14 @@ class Login extends React.Component {
             variables={{ email, password }}
             onCompleted={data => this.onCompleted(data)}
           >
-            {(login, { loading, error: FormError }) => (
-              <Form onSubmit={login} error={!!error}>
-                {!!error ? (
-                  <Message error header="Error" content={error} />
+            {(login, { loading, error: formError }) => (
+              <Form onSubmit={login} error={!!error || !!formError}>
+                {!!formError || !!error ? (
+                  <Message
+                    error
+                    header="Error"
+                    content={error || formError.message}
+                  />
                 ) : null}
                 <Form.Field>
                   <label>Email</label>
