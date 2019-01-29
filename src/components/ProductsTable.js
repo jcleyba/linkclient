@@ -22,6 +22,12 @@ export default class ProductsTable extends React.Component {
       },
     ];
 
-    return <ReactTable data={this.props.data} columns={columns} />;
+    return (
+      <ReactTable
+        defaultPageSize={10}
+        data={this.props.data}
+        columns={columns}
+      />
+    );
   }
 }

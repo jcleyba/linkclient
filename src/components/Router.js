@@ -43,6 +43,10 @@ const ProviderRoutes = props => {
   return (
     <Switch>
       <PrivateRoute exact path={`${props.match.path}`} component={Providers} />
+      <PrivateRoute
+        path={`${props.match.path}/add/:id`}
+        component={AddProvider}
+      />
       <PrivateRoute path={`${props.match.path}/add`} component={AddProvider} />
     </Switch>
   );

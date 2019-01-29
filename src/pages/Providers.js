@@ -42,6 +42,7 @@ class Products extends React.Component {
 const PROVIDERS_QUERY = gql`
   query ProvidersQuery {
     providers {
+      id
       cuit
       name
       razonSocial
