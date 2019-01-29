@@ -1,9 +1,10 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import { Header, Button, Icon, Segment } from 'semantic-ui-react';
+
 import ProvidersTable from '../components/ProvidersTable';
+import { PROVIDERS_QUERY } from '../queries/providers';
 
 class Products extends React.Component {
   render() {
@@ -38,18 +39,5 @@ class Products extends React.Component {
     );
   }
 }
-
-const PROVIDERS_QUERY = gql`
-  query ProvidersQuery {
-    providers {
-      id
-      cuit
-      name
-      razonSocial
-      apellido
-      email
-    }
-  }
-`;
 
 export default Products;

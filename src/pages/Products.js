@@ -1,10 +1,10 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import { Header, Button, Icon, Segment } from 'semantic-ui-react';
 
 import ProductsTable from '../components/ProductsTable';
+import { PRODUCTS_QUERY } from '../queries/products';
 class Products extends React.Component {
   render() {
     const { match } = this.props;
@@ -38,17 +38,5 @@ class Products extends React.Component {
     );
   }
 }
-
-const PRODUCTS_QUERY = gql`
-  query ProductsQuery {
-    products {
-      id
-      codProduct
-      description
-      stock
-      price
-    }
-  }
-`;
 
 export default Products;
