@@ -2,7 +2,8 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
-import { Header, Button, Icon } from 'semantic-ui-react';
+import { Header, Button, Icon, Segment } from 'semantic-ui-react';
+import ProvidersTable from '../components/ProvidersTable';
 
 class Products extends React.Component {
   render() {
@@ -27,14 +28,9 @@ class Products extends React.Component {
             if (error) return `Error! ${error.message}`;
 
             return (
-              <div>
-                {data.providers &&
-                  data.providers.map(provider => (
-                    <li key={provider.cuit}>
-                      {provider.cuit} - {provider.name} - {provider.razonSocial}
-                    </li>
-                  ))}
-              </div>
+              <Segment>
+                <ProvidersTable data={data.providers} />
+              </Segment>
             );
           }}
         </Query>
@@ -49,6 +45,8 @@ const PROVIDERS_QUERY = gql`
       cuit
       name
       razonSocial
+      apellido
+      email
     }
   }
 `;

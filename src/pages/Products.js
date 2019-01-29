@@ -2,8 +2,9 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
-import { Header, Button, Icon } from 'semantic-ui-react';
+import { Header, Button, Icon, Segment } from 'semantic-ui-react';
 
+import ProductsTable from '../components/ProductsTable';
 class Products extends React.Component {
   render() {
     const { match } = this.props;
@@ -25,17 +26,11 @@ class Products extends React.Component {
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;
-
+            console.log(data);
             return (
-              <div>
-                {data.products &&
-                  data.products.map(product => (
-                    <li key={product.id}>
-                      {product.codProduct} - {product.description} - stock:
-                      {product.stock} - ${product.price}
-                    </li>
-                  ))}
-              </div>
+              <Segment>
+                <ProductsTable data={data.products} />
+              </Segment>
             );
           }}
         </Query>
