@@ -17,7 +17,7 @@ const withSidebar = props => (
         <Icon name="home" />
         Vender
       </Menu.Item>
-      <Menu.Item as={Link} to="/sales">
+      <Menu.Item as={Link} to="/products">
         <Icon name="food" />
         Productos
       </Menu.Item>

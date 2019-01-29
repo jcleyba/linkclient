@@ -10,7 +10,7 @@ class Products extends React.Component {
 
     return (
       <div>
-        <Header as="h1">Proveedores</Header>
+        <Header as="h1">Productos</Header>
         <Button
           icon
           primary
@@ -21,17 +21,18 @@ class Products extends React.Component {
           <Icon name="add" />
           Nuevo
         </Button>
-        <Query query={PROVIDERS_QUERY}>
+        <Query query={PRODUCTS_QUERY}>
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;
 
             return (
               <div>
-                {data.providers &&
-                  data.providers.map(provider => (
-                    <li key={provider.cuit}>
-                      {provider.cuit} - {provider.name} - {provider.razonSocial}
+                {data.products &&
+                  data.products.map(product => (
+                    <li key={product.id}>
+                      {product.codProduct} - {product.description} - stock:
+                      {product.stock} - ${product.price}
                     </li>
                   ))}
               </div>
@@ -43,12 +44,14 @@ class Products extends React.Component {
   }
 }
 
-const PROVIDERS_QUERY = gql`
-  query ProvidersQuery {
-    providers {
-      cuit
-      name
-      razonSocial
+const PRODUCTS_QUERY = gql`
+  query ProductsQuery {
+    products {
+      id
+      codProduct
+      description
+      stock
+      price
     }
   }
 `;

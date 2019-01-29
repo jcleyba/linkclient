@@ -1,13 +1,20 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { Providers, Sales, Cash, Login } from '../pages';
+import {
+  Providers,
+  Products,
+  Cash,
+  Login,
+  AddProduct,
+  AddProvider,
+  AddSale,
+} from '../pages';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
-    <Route
-      {...rest}
-      render={props =>
+    <Route {...rest}>
+      {props =>
         sessionStorage.getItem('token') ? (
           <Component {...props} />
         ) : (
@@ -19,17 +26,35 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           />
         )
       }
-    />
+    </Route>
+  );
+};
+
+const ProductRoutes = props => {
+  return (
+    <Switch>
+      <PrivateRoute exact path={`${props.match.path}`} component={Products} />
+      <PrivateRoute path={`${props.match.path}/add`} component={AddProduct} />
+    </Switch>
+  );
+};
+
+const ProviderRoutes = props => {
+  return (
+    <Switch>
+      <PrivateRoute exact path={`${props.match.path}`} component={Providers} />
+      <PrivateRoute path={`${props.match.path}/add`} component={AddProvider} />
+    </Switch>
   );
 };
 
 const CustomRouter = () => (
   <div>
     <Switch>
-      <PrivateRoute exact path="/" component={Sales} />
+      <PrivateRoute exact path="/" component={AddSale} />
       <Route exact path="/login" component={Login} />
-      <PrivateRoute path="/providers" component={Providers} />
-      <PrivateRoute path="/sales" component={Sales} />
+      <PrivateRoute path="/products" component={ProductRoutes} />
+      <PrivateRoute path="/providers" component={ProviderRoutes} />
       <PrivateRoute path="/cash" component={Cash} />
     </Switch>
   </div>
