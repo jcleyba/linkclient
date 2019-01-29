@@ -32,6 +32,7 @@ class AddProvider extends React.Component {
             {({ loading, error, data: providerData }) => {
               if (loading) return 'Loading...';
               if (error) return `Error! ${error.message}`;
+              console.log(providerData);
               if (providerData.provider) {
                 values = providerData.provider;
               }
@@ -136,7 +137,7 @@ const PROVIDERS_MUTATION = gql`
 `;
 
 const PROVIDERS_QUERY = gql`
-  query ProvidersQuery($id: String) {
+  query ProvidersQuery($id: ID) {
     provider(id: $id) {
       cuit
       name

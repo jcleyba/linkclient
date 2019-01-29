@@ -21,6 +21,18 @@ const client = new ApolloClient({
       },
     });
   },
+  onError: ({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(err => {
+        if (err.message.includes('403')) {
+          sessionStorage.clear();
+        }
+      });
+    }
+    if (networkError) {
+      console.log(networkError);
+    }
+  },
 });
 
 const Client = () => (

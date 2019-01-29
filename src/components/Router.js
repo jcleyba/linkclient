@@ -34,6 +34,10 @@ const ProductRoutes = props => {
   return (
     <Switch>
       <PrivateRoute exact path={`${props.match.path}`} component={Products} />
+      <PrivateRoute
+        path={`${props.match.path}/add/:id`}
+        component={AddProduct}
+      />
       <PrivateRoute path={`${props.match.path}/add`} component={AddProduct} />
     </Switch>
   );

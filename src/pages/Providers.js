@@ -29,7 +29,7 @@ class Products extends React.Component {
 
             return (
               <Segment>
-                <ProvidersTable data={data.providers} />
+                <ProvidersTable data={data.providers || []} />
               </Segment>
             );
           }}
