@@ -1,18 +1,26 @@
 import React from 'react';
-import { DebounceInput } from 'react-debounce-input';
 import { withRouter } from 'react-router-dom';
-import { SEARCH_QUERY } from '../queries/products';
 import { Query } from 'react-apollo';
 import { Input, Message } from 'semantic-ui-react';
 import { debounce } from 'lodash';
+
+import { SEARCH_QUERY } from '../queries/products';
+import Result from '../components/ProductsResult';
+import Cart from '../components/Cart';
 
 class AddSale extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       term: props.term || '',
+      cart: [],
     };
   }
+
+  addProductToCart = product => {
+    this.setState({ cart: [...this.state.cart, product], term: '' });
+    this.termText.inputRef.value = '';
+  };
 
   renderResults = data => {
     if (data && !data.search.length) {
@@ -21,7 +29,9 @@ class AddSale extends React.Component {
     return (
       data.search &&
       data.search.map((item, index) => {
-        return <div key={index}>{item.description}</div>;
+        return (
+          <Result key={index} product={item} onSelect={this.addProductToCart} />
+        );
       })
     );
   };
@@ -52,7 +62,7 @@ class AddSale extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading...';
           if (error) {
-            this.handleError();
+            this.handleError(error);
           }
 
           return <div>{this.renderResults(data)}</div>;
@@ -64,10 +74,19 @@ class AddSale extends React.Component {
   renderInput = () => {
     return (
       <Input
+        size="large"
+        ref={el => (this.termText = el)}
         onChange={e => this.onInputChange(e.target.value)}
         placeholder="Producto o codigo"
+        style={{ marginBottom: 20 }}
       />
     );
+  };
+
+  renderCart = () => {
+    const { cart } = this.state;
+
+    return <Cart items={cart} />;
   };
 
   render() {
@@ -75,6 +94,7 @@ class AddSale extends React.Component {
       <div>
         {this.renderInput()}
         {this.renderQuery()}
+        {this.renderCart()}
       </div>
     );
   }
