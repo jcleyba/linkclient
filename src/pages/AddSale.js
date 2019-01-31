@@ -1,15 +1,23 @@
 import React from 'react';
-
+import { DebounceInput } from 'react-debounce-input';
+import { withRouter } from 'react-router-dom';
 import { SEARCH_QUERY } from '../queries/products';
 import { Query } from 'react-apollo';
-import { Input } from 'semantic-ui-react';
+import { Input, Message } from 'semantic-ui-react';
+import { debounce } from 'lodash';
 
-export default class AddSale extends React.Component {
-  state = {
-    term: '',
-  };
+class AddSale extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      term: props.term || '',
+    };
+  }
 
   renderResults = data => {
+    if (data && !data.search.length) {
+      return 'Sin resultados';
+    }
     return (
       data.search &&
       data.search.map((item, index) => {
@@ -18,9 +26,20 @@ export default class AddSale extends React.Component {
     );
   };
 
-  onInputChange = ({ target }) => {
-    this.setState({ term: target.value });
+  onInputChange = debounce(term => {
+    this.setState({ term });
+  }, 250);
+
+  handleError = error => {
+    if (error.includes('403')) {
+      sessionStorage.clear();
+      this.props.history.push('/login');
+      return;
+    }
+
+    return <Message error header="Error" content={error} />;
   };
+
   renderQuery = () => {
     const { term } = this.state;
 
@@ -32,7 +51,9 @@ export default class AddSale extends React.Component {
       <Query query={SEARCH_QUERY} variables={{ term }}>
         {({ loading, error, data }) => {
           if (loading) return 'Loading...';
-          if (error) return `Error! ${error.message}`;
+          if (error) {
+            this.handleError();
+          }
 
           return <div>{this.renderResults(data)}</div>;
         }}
@@ -43,8 +64,7 @@ export default class AddSale extends React.Component {
   renderInput = () => {
     return (
       <Input
-        value={this.state.term}
-        onChange={this.onInputChange}
+        onChange={e => this.onInputChange(e.target.value)}
         placeholder="Producto o codigo"
       />
     );
@@ -59,3 +79,5 @@ export default class AddSale extends React.Component {
     );
   }
 }
+
+export default withRouter(AddSale);
