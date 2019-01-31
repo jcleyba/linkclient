@@ -7,8 +7,8 @@ const CartItem = props => {
       <Label size="big" horizontal color="teal">
         {props.item.description}
       </Label>{' '}
-      Cantidad:<b>{props.item.amount}</b> - Precio: <b>${props.item.price}</b> -
-      Subtotal: <b>${props.subtotal}</b>
+      Cantidad: <b>{props.item.amount}</b> - Precio: <b>${props.item.price}</b>{' '}
+      - Subtotal: <b>${props.subtotal}</b>
       <Button floated="right" color="red" onClick={props.removeItem}>
         Borrar
       </Button>

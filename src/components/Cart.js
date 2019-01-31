@@ -53,7 +53,7 @@ export default class Cart extends React.Component {
           {this.renderItems(items)}
           <List.Item>
             <Label size="big" horizontal>
-              Total: {this.renderTotal(items)}
+              Total: ${this.renderTotal(items)}
             </Label>
           </List.Item>
         </List>

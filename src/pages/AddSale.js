@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { Input, Message } from 'semantic-ui-react';
+import { Input, Message, Card } from 'semantic-ui-react';
 import { debounce } from 'lodash';
 
 import { SEARCH_QUERY } from '../queries/products';
@@ -27,12 +27,18 @@ class AddSale extends React.Component {
       return 'Sin resultados';
     }
     return (
-      data.search &&
-      data.search.map((item, index) => {
-        return (
-          <Result key={index} product={item} onSelect={this.addProductToCart} />
-        );
-      })
+      <Card.Group>
+        {data.search &&
+          data.search.map((item, index) => {
+            return (
+              <Result
+                key={index}
+                product={item}
+                onSelect={this.addProductToCart}
+              />
+            );
+          })}
+      </Card.Group>
     );
   };
 
