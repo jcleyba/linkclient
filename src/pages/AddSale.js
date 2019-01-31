@@ -23,7 +23,7 @@ class AddSale extends React.Component {
   };
 
   renderResults = data => {
-    if (data && !data.search.length) {
+    if (data && data.search && !data.search.length) {
       return 'Sin resultados';
     }
     return (
@@ -66,7 +66,6 @@ class AddSale extends React.Component {
     return (
       <Query query={SEARCH_QUERY} variables={{ term }}>
         {({ loading, error, data }) => {
-          if (loading) return 'Loading...';
           if (error) {
             this.handleError(error);
           }

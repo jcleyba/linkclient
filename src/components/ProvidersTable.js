@@ -32,12 +32,20 @@ export default class ProvidersTable extends React.Component {
       },
       {
         id: 'id',
-        Header: '',
+        Header: 'Acciones',
+        minWidth: 120,
         Cell: props => (
-          <div style={{ textAlign: 'center' }}>
+          <div>
             <Button
               as={Link}
-              color="green"
+              primary
+              to={`providers/${props.original.id}/products`}
+            >
+              Catálogo
+            </Button>
+            <Button
+              as={Link}
+              color="teal"
               to={`providers/add/${props.original.id}`}
             >
               Editar

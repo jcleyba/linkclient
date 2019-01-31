@@ -51,6 +51,10 @@ const ProviderRoutes = props => {
         path={`${props.match.path}/add/:id`}
         component={AddProvider}
       />
+      <PrivateRoute
+        path={`${props.match.path}/:id/products`}
+        component={Products}
+      />
       <PrivateRoute path={`${props.match.path}/add`} component={AddProvider} />
     </Switch>
   );

@@ -8,6 +8,7 @@ import { PRODUCTS_QUERY } from '../queries/products';
 class Products extends React.Component {
   render() {
     const { match } = this.props;
+    const { id } = match.params;
 
     return (
       <div>
@@ -22,7 +23,7 @@ class Products extends React.Component {
           <Icon name="add" />
           Nuevo
         </Button>
-        <Query query={PRODUCTS_QUERY}>
+        <Query query={PRODUCTS_QUERY} variables={{ id }}>
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;
