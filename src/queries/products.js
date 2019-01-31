@@ -26,6 +26,20 @@ export const PRODUCT_QUERY = gql`
   }
 `;
 
+export const SEARCH_QUERY = gql`
+  query ProductQuery($term: String) {
+    search(term: $term) {
+      id
+      codProduct
+      description
+      stock
+      price
+      id_ProductType
+      id_Provider
+    }
+  }
+`;
+
 export const PRODUCTS_MUTATION = gql`
   mutation ProductsMutation(
     $codProduct: String!

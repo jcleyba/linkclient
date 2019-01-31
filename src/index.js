@@ -24,6 +24,7 @@ const client = new ApolloClient({
   onError: ({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(err => {
+        console.error(err);
         if (err.message.includes('403')) {
           sessionStorage.clear();
         }
