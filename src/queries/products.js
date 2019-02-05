@@ -7,7 +7,8 @@ export const PRODUCTS_QUERY = gql`
       codProduct
       description
       stock
-      price
+      salePrice
+      costPrice
     }
   }
 `;
@@ -19,9 +20,10 @@ export const PRODUCT_QUERY = gql`
       codProduct
       description
       stock
-      price
       id_ProductType
       id_Provider
+      salePrice
+      costPrice
     }
   }
 `;
@@ -33,9 +35,10 @@ export const SEARCH_QUERY = gql`
       codProduct
       description
       stock
-      price
       id_ProductType
       id_Provider
+      salePrice
+      costPrice
     }
   }
 `;
@@ -48,7 +51,8 @@ export const PRODUCTS_MUTATION = gql`
     $id_Provider: Int!
     $stock: Float!
     $minimumStock: Float!
-    $price: Float!
+    $salePrice: Float!
+    $costPrice: Float!
   ) {
     products(
       codProduct: $codProduct
@@ -57,7 +61,8 @@ export const PRODUCTS_MUTATION = gql`
       id_Provider: $id_Provider
       stock: $stock
       minimumStock: $minimumStock
-      price: $price
+      salePrice: $salePrice
+      costPrice: $costPrice
     ) {
       id
     }

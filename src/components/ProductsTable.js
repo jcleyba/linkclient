@@ -18,8 +18,12 @@ export default class ProductsTable extends React.Component {
         accessor: 'stock', // Custom value accessors!
       },
       {
-        Header: 'Precio',
-        accessor: 'price',
+        Header: 'Precio Venta',
+        accessor: 'salePrice',
+      },
+      {
+        Header: 'Precio Costo',
+        accessor: 'costPrice',
       },
       {
         id: 'id',

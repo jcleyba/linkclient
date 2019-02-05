@@ -11,8 +11,8 @@ export default class ProductsForm extends React.Component {
       description = '',
       stock = '',
       minimumStock = '',
-      price = '',
-      precioCosto = '',
+      salePrice = '',
+      costPrice = '',
       id_Provider = '',
       id_ProductType = '',
     } = props;
@@ -21,8 +21,8 @@ export default class ProductsForm extends React.Component {
       description,
       stock,
       minimumStock,
-      price,
-      precioCosto,
+      salePrice,
+      costPrice,
       id_Provider,
       id_ProductType,
     };
@@ -94,9 +94,9 @@ export default class ProductsForm extends React.Component {
             <label>Precio Venta</label>
             <input
               placeholder="Precio Venta"
-              name="price"
+              name="salePrice"
               type="number"
-              value={this.state.price}
+              value={this.state.salePrice}
               onChange={this.onInputChange}
             />
           </Form.Field>
@@ -104,9 +104,9 @@ export default class ProductsForm extends React.Component {
             <label>Precio Costo</label>
             <input
               placeholder="Precio Costo"
-              name="precioCosto"
+              name="costPrice"
               type="number"
-              value={this.state.precioCosto}
+              value={this.state.costPrice}
               onChange={this.onInputChange}
             />
           </Form.Field>

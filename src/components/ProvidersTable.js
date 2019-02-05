@@ -27,8 +27,12 @@ export default class ProvidersTable extends React.Component {
         accessor: 'email',
       },
       {
-        Header: 'Email',
-        accessor: 'email',
+        Header: 'Teléfono 1',
+        accessor: 'phoneNumber1',
+      },
+      {
+        Header: 'Teléfono 2',
+        accessor: 'phoneNumber2',
       },
       {
         id: 'id',
