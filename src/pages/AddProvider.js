@@ -46,8 +46,8 @@ class AddProvider extends React.Component {
   renderMutation = (id, values) => {
     return (
       <Mutation
-        mutation={id ? PROVIDERS_MUTATION : PROVIDERS_MUTATION}
-        variables={this.parseState(this.state)}
+        mutation={PROVIDERS_MUTATION}
+        variables={{ id, ...this.parseState() }}
         onCompleted={data => this.onCompleted(data)}
       >
         {(providers, { data, loading, error }) => {

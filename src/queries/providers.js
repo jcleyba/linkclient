@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 export const PROVIDERS_MUTATION = gql`
   mutation ProdiversMutation(
+    $id: ID
     $cuit: String!
     $name: String!
     $apellido: String!
@@ -11,6 +12,7 @@ export const PROVIDERS_MUTATION = gql`
     $phoneNumber2: Float
   ) {
     providers(
+      id: $id
       cuit: $cuit
       name: $name
       apellido: $apellido

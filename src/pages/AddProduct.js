@@ -26,6 +26,7 @@ class AddProduct extends React.Component {
           if (error) return `Error! ${error.message}`;
 
           if (productData.product) {
+            console.log(productData.product);
             values = productData.product;
           }
 
@@ -41,7 +42,8 @@ class AddProduct extends React.Component {
       id_Provider,
       stock,
       minimumStock,
-      price,
+      salePrice,
+      costPrice,
     } = this.state;
 
     return {
@@ -49,16 +51,17 @@ class AddProduct extends React.Component {
       id_ProductType: parseInt(id_ProductType),
       id_Provider: parseInt(id_Provider),
       stock: parseFloat(stock),
-      minimumStock: parseFloat(minimumStock),
-      price: parseFloat(price),
+      minimumStock: parseFloat(minimumStock || 0),
+      salePrice: parseFloat(salePrice),
+      costPrice: parseFloat(costPrice),
     };
   };
 
   renderMutation = (id, values) => {
     return (
       <Mutation
-        mutation={id ? PRODUCTS_MUTATION : PRODUCTS_MUTATION}
-        variables={this.parseState()}
+        mutation={PRODUCTS_MUTATION}
+        variables={{ id, ...this.parseState() }}
         onCompleted={data => this.onCompleted(data)}
       >
         {(products, { data, loading, error }) => (

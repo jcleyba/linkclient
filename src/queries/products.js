@@ -45,16 +45,18 @@ export const SEARCH_QUERY = gql`
 
 export const PRODUCTS_MUTATION = gql`
   mutation ProductsMutation(
+    $id: ID
     $codProduct: String!
     $description: String!
     $id_ProductType: Int!
     $id_Provider: Int!
     $stock: Float!
-    $minimumStock: Float!
+    $minimumStock: Float
     $salePrice: Float!
     $costPrice: Float!
   ) {
     products(
+      id: $id
       codProduct: $codProduct
       description: $description
       id_ProductType: $id_ProductType

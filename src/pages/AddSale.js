@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { Input, Message, Card } from 'semantic-ui-react';
@@ -7,58 +7,59 @@ import { debounce } from 'lodash';
 import { SEARCH_QUERY } from '../queries/products';
 import Result from '../components/ProductsResult';
 import Cart from '../components/Cart';
+import { Consumer } from '../app/App';
 
-class AddSale extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: props.term || '',
-      cart: [],
-    };
-  }
+const AddSale = props => {
+  const [term, setTerm] = useState(props.term || '');
+  let inputEl = useRef(null);
 
-  addProductToCart = product => {
-    this.setState({ cart: [...this.state.cart, product], term: '' });
-    this.termText.inputRef.value = '';
+  const addProductToCart = (cart, product, setCart) => {
+    setTerm('');
+    setCart([...cart, product]);
+    inputEl.inputRef.value = '';
   };
 
-  renderResults = data => {
+  const renderResults = data => {
     if (data && data.search && !data.search.length) {
       return 'Sin resultados';
     }
     return (
-      <Card.Group>
-        {data.search &&
-          data.search.map((item, index) => {
-            return (
-              <Result
-                key={index}
-                product={item}
-                onSelect={this.addProductToCart}
-              />
-            );
-          })}
-      </Card.Group>
+      <Consumer>
+        {({ cart, setCart }) => (
+          <Card.Group>
+            {data.search &&
+              data.search.map((item, index) => {
+                return (
+                  <Result
+                    key={index}
+                    product={item}
+                    onSelect={product =>
+                      addProductToCart(cart, product, setCart)
+                    }
+                  />
+                );
+              })}
+          </Card.Group>
+        )}
+      </Consumer>
     );
   };
 
-  onInputChange = debounce(term => {
-    this.setState({ term });
-  }, 250);
+  const onInputChange = debounce(term => {
+    setTerm(term);
+  }, 500);
 
-  handleError = error => {
+  const handleError = error => {
     if (error.includes('403')) {
       sessionStorage.clear();
-      this.props.history.push('/login');
+      props.history.push('/login');
       return;
     }
 
     return <Message error header="Error" content={error} />;
   };
 
-  renderQuery = () => {
-    const { term } = this.state;
-
+  const renderQuery = () => {
     if (term.length < 3) {
       return <div>Debe ingresar al menos 3 caracteres</div>;
     }
@@ -67,42 +68,38 @@ class AddSale extends React.Component {
       <Query query={SEARCH_QUERY} variables={{ term }}>
         {({ loading, error, data }) => {
           if (error) {
-            this.handleError(error);
+            handleError(error);
           }
 
-          return <div>{this.renderResults(data)}</div>;
+          return <div>{renderResults(data)}</div>;
         }}
       </Query>
     );
   };
 
-  renderInput = () => {
+  const renderInput = () => {
     return (
       <Input
         size="large"
-        ref={el => (this.termText = el)}
-        onChange={e => this.onInputChange(e.target.value)}
+        ref={el => (inputEl = el)}
+        onChange={e => onInputChange(e.target.value)}
         placeholder="Producto o codigo"
         style={{ marginBottom: 20 }}
       />
     );
   };
 
-  renderCart = () => {
-    const { cart } = this.state;
-
-    return <Cart items={cart} />;
+  const renderCart = () => {
+    return <Consumer>{({ cart }) => <Cart items={cart} />}</Consumer>;
   };
 
-  render() {
-    return (
-      <div>
-        {this.renderInput()}
-        {this.renderQuery()}
-        {this.renderCart()}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {renderInput()}
+      {renderQuery()}
+      {renderCart()}
+    </div>
+  );
+};
 
 export default withRouter(AddSale);

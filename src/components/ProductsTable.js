@@ -33,7 +33,7 @@ export default class ProductsTable extends React.Component {
             <Button
               as={Link}
               color="green"
-              to={`products/add/${props.original.id}`}
+              to={`/products/add/${props.original.id}`}
             >
               Editar
             </Button>
