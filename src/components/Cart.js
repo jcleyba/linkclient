@@ -1,63 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { List, Segment, Header, Label } from 'semantic-ui-react';
 import CartItem from './CartItem';
+import { Consumer } from '../app/App';
 
-export default class Cart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: props.items || [],
-    };
-  }
-  componentDidUpdate(prevProps) {
-    if (this.props.items !== this.state.items) {
-      this.setState({ items: this.props.items });
-    }
-  }
+const Cart = props => {
+  const [items, setItems] = useState(props.items || []);
 
-  removeItem = index => {
-    this.setState({ items: [...this.state.items.splice(index, 1)] });
-  };
+  // Hooks!!
+  useEffect(() => {
+    setItems(props.items);
+  }, [props.items, items]);
 
-  renderItems = items => {
-    if (!items) return;
+  const removeItem = index => setItems([...items.splice(index, 1)]);
+
+  const renderItems = items => {
+    if (!items) return null;
+
     return items.map((prod, i) => {
-      const subtotal = prod.price * prod.amount;
+      const subtotal = prod.salePrice * prod.amount;
       return (
         <CartItem
           subtotal={subtotal}
           item={prod}
           key={i}
-          removeItem={() => this.removeItem(i)}
+          removeItem={() => removeItem(i)}
         />
       );
     });
   };
 
-  renderTotal = items => {
-    if (!items) {
-      return null;
-    }
+  const renderTotal = items => {
+    if (!items) return null;
 
     return items.reduce((a, b) => {
-      const subtotal = b.price * b.amount;
+      const subtotal = b.salePrice * b.amount;
       return a + subtotal;
     }, 0);
   };
-  render() {
-    const { items } = this.state;
-    return (
-      <Segment>
-        <Header>Carrito</Header>
-        <List divided relaxed>
-          {this.renderItems(items)}
-          <List.Item>
-            <Label size="big" horizontal>
-              Total: ${this.renderTotal(items)}
-            </Label>
-          </List.Item>
-        </List>
-      </Segment>
-    );
-  }
-}
+
+  return (
+    <Consumer>
+      {({ cart }) => (
+        <Segment>
+          <Header>Carrito</Header>
+          <List divided relaxed>
+            {renderItems(cart)}
+            <List.Item>
+              <Label size="big" horizontal>
+                Total: ${renderTotal(cart)}
+              </Label>
+            </List.Item>
+          </List>
+        </Segment>
+      )}
+    </Consumer>
+  );
+};
+
+export default Cart;

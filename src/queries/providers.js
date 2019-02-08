@@ -2,18 +2,24 @@ import gql from 'graphql-tag';
 
 export const PROVIDERS_MUTATION = gql`
   mutation ProdiversMutation(
+    $id: ID
     $cuit: String!
     $name: String!
-    $apellido: String!
+    $apellido: String
     $razonSocial: String!
     $email: String!
+    $phoneNumber1: Float
+    $phoneNumber2: Float
   ) {
     providers(
+      id: $id
       cuit: $cuit
       name: $name
       apellido: $apellido
       razonSocial: $razonSocial
       email: $email
+      phoneNumber1: $phoneNumber1
+      phoneNumber2: $phoneNumber2
     ) {
       id
     }
@@ -29,6 +35,8 @@ export const PROVIDERS_QUERY = gql`
       razonSocial
       apellido
       email
+      phoneNumber1
+      phoneNumber2
     }
   }
 `;
@@ -41,6 +49,8 @@ export const PROVIDER_QUERY = gql`
       razonSocial
       apellido
       email
+      phoneNumber1
+      phoneNumber2
     }
   }
 `;

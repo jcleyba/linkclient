@@ -10,8 +10,18 @@ export default class ProvidersForm extends React.Component {
       name = '',
       apellido = '',
       email = '',
+      phoneNumber1 = '',
+      phoneNumber2 = '',
     } = props;
-    this.state = { cuit, razonSocial, name, apellido, email };
+    this.state = {
+      cuit,
+      razonSocial,
+      name,
+      apellido,
+      email,
+      phoneNumber1,
+      phoneNumber2,
+    };
   }
 
   onInputChange = ({ target }) => {
@@ -79,6 +89,26 @@ export default class ProvidersForm extends React.Component {
               placeholder="Email"
               name="email"
               value={this.state.email}
+              onChange={this.onInputChange}
+            />
+          </Form.Field>
+        </Form.Group>
+        <Form.Group widths="equal">
+          <Form.Field>
+            <label>Teléfono 1</label>
+            <input
+              placeholder="Teléfono 1"
+              name="phoneNumber1"
+              value={this.state.phoneNumber1 || ''}
+              onChange={this.onInputChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Teléfono 2</label>
+            <input
+              placeholder="Teléfono 2"
+              name="phoneNumber2"
+              value={this.state.phoneNumber2 || ''}
               onChange={this.onInputChange}
             />
           </Form.Field>

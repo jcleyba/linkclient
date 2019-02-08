@@ -6,12 +6,24 @@ import { withRouter } from 'react-router-dom';
 import ProvidersForm from '../components/ProvidersForm';
 import { PROVIDER_QUERY, PROVIDERS_MUTATION } from '../queries/providers';
 class AddProvider extends React.Component {
+  state = {};
+
   onCompleted = data => {
     this.props.history.push('/providers');
   };
 
   onSubmit = (state, mutation) => {
     this.setState({ ...state }, mutation);
+  };
+
+  parseState = () => {
+    const { phoneNumber1, phoneNumber2 } = this.state;
+
+    return {
+      ...this.state,
+      phoneNumber1: parseInt(phoneNumber1),
+      phoneNumber2: parseFloat(phoneNumber2),
+    };
   };
 
   renderQuery = (id, values) => {
@@ -34,8 +46,8 @@ class AddProvider extends React.Component {
   renderMutation = (id, values) => {
     return (
       <Mutation
-        mutation={id ? PROVIDERS_MUTATION : PROVIDERS_MUTATION}
-        variables={this.state}
+        mutation={PROVIDERS_MUTATION}
+        variables={{ id, ...this.parseState() }}
         onCompleted={data => this.onCompleted(data)}
       >
         {(providers, { data, loading, error }) => {
