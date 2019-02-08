@@ -23,7 +23,7 @@ class Products extends React.Component {
           <Icon name="add" />
           Nuevo
         </Button>
-        <Query query={PROVIDERS_QUERY}>
+        <Query query={PROVIDERS_QUERY} fetchPolicy="no-cache">
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;

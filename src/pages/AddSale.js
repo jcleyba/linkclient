@@ -67,6 +67,9 @@ const AddSale = props => {
     return (
       <Query query={SEARCH_QUERY} variables={{ term }}>
         {({ loading, error, data }) => {
+          if (loading) {
+            return <div>Buscando...</div>;
+          }
           if (error) {
             handleError(error);
           }

@@ -27,7 +27,7 @@ class Products extends React.Component {
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;
-            console.log(data.products);
+
             return (
               <Segment>
                 <ProductsTable data={data.products || []} />

@@ -4,12 +4,14 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import {
   Providers,
   Products,
-  Cash,
+  CashFlow,
   Login,
   AddProduct,
   AddProvider,
   AddSale,
+  CashOut,
 } from '../pages';
+import AddCashOut from '../pages/AddCashOut';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -43,6 +45,19 @@ const ProductRoutes = props => {
   );
 };
 
+const CashOutRoutes = props => {
+  return (
+    <Switch>
+      <PrivateRoute exact path={`${props.match.path}`} component={CashOut} />
+      <PrivateRoute
+        path={`${props.match.path}/add/:id`}
+        component={AddCashOut}
+      />
+      <PrivateRoute path={`${props.match.path}/add`} component={AddCashOut} />
+    </Switch>
+  );
+};
+
 const ProviderRoutes = props => {
   return (
     <Switch>
@@ -67,7 +82,8 @@ const CustomRouter = () => (
       <Route exact path="/login" component={Login} />
       <PrivateRoute path="/products" component={ProductRoutes} />
       <PrivateRoute path="/providers" component={ProviderRoutes} />
-      <PrivateRoute path="/cash" component={Cash} />
+      <PrivateRoute path="/cash-flow" component={CashFlow} />
+      <PrivateRoute path="/cash-out" component={CashOutRoutes} />
     </Switch>
   </div>
 );

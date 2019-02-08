@@ -20,7 +20,7 @@ class AddProduct extends React.Component {
     let values = this.state;
 
     return (
-      <Query query={PRODUCT_QUERY} variables={{ id }}>
+      <Query query={PRODUCT_QUERY} variables={{ id }} fetchPolicy="no-cache">
         {({ loading, error, data: productData }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;

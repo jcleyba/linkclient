@@ -14,7 +14,7 @@ const withSidebar = props => (
       width="thin"
     >
       <Menu.Item as={Link} to="/">
-        <Icon name="home" />
+        <Icon name="cart" />
         Vender
       </Menu.Item>
       <Menu.Item as={Link} to="/products">
@@ -25,9 +25,13 @@ const withSidebar = props => (
         <Icon name="briefcase" />
         Proveedores
       </Menu.Item>
-      <Menu.Item as={Link} to="/cash">
+      <Menu.Item as={Link} to="/cash-flow">
         <Icon name="money bill alternate outline" />
         Caja
+      </Menu.Item>
+      <Menu.Item as={Link} to="/cash-out">
+        <Icon name="money bill alternate" />
+        Egresos
       </Menu.Item>
       <Menu.Item as="a" onClick={() => props.history.push('/login')}>
         <Icon name="log out" />
