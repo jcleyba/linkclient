@@ -113,7 +113,7 @@ export default class ProvidersForm extends React.Component {
             />
           </Form.Field>
         </Form.Group>
-        <Button primary type="submit">
+        <Button primary type="submit" loading={this.props.loading}>
           Submit
         </Button>
       </Form>

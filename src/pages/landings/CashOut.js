@@ -3,15 +3,11 @@ import { Segment, Icon, Button, Header } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import CashOutTable from '../components/CashOutTable';
-import { CASHOUTS_QUERY } from '../queries/cashouts';
+import CashOutTable from '../../components/tables/CashOutTable';
+import { CASHOUTS_QUERY } from '../../queries/cashouts';
 
 const CashOut = props => {
   const { match } = props;
-
-  const onComplete = () => {
-    match.history.push('/cash-out');
-  };
 
   return (
     <>
@@ -26,8 +22,8 @@ const CashOut = props => {
         <Icon name="add" />
         Nuevo
       </Button>
-      <Query query={CASHOUTS_QUERY} fetchPolicy="no-cache">
-        {({ loading, error, data }) => {
+      <Query query={CASHOUTS_QUERY} fetchPolicy="cache-and-network">
+        {({ loading, error, data, refetch }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
 
@@ -35,7 +31,7 @@ const CashOut = props => {
             <Segment>
               <CashOutTable
                 data={data.cashouts || []}
-                onComplete={onComplete}
+                onDelete={() => refetch()}
               />
             </Segment>
           );

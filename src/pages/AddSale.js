@@ -5,7 +5,7 @@ import { Input, Message, Card } from 'semantic-ui-react';
 import { debounce } from 'lodash';
 
 import { SEARCH_QUERY } from '../queries/products';
-import Result from '../components/ProductsResult';
+import Result from '../components/cards/ProductsResult';
 import Cart from '../components/Cart';
 import { Consumer } from '../app/App';
 

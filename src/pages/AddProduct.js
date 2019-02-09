@@ -3,7 +3,7 @@ import { Segment, Header } from 'semantic-ui-react';
 import { Query, Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
-import ProductsForm from '../components/ProductsForm';
+import ProductsForm from '../components/forms/ProductsForm';
 import { PRODUCTS_MUTATION, PRODUCT_QUERY } from '../queries/products';
 class AddProduct extends React.Component {
   state = {};
@@ -26,7 +26,6 @@ class AddProduct extends React.Component {
           if (error) return `Error! ${error.message}`;
 
           if (productData.product) {
-            console.log(productData.product);
             values = productData.product;
           }
 
@@ -68,6 +67,7 @@ class AddProduct extends React.Component {
           <ProductsForm
             mutation={products}
             onSubmit={this.onSubmit}
+            loading={loading}
             {...values}
           />
         )}

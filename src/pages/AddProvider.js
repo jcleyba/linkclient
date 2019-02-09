@@ -3,7 +3,7 @@ import { Segment, Header } from 'semantic-ui-react';
 import { Mutation, Query } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
-import ProvidersForm from '../components/ProvidersForm';
+import ProvidersForm from '../components/forms/ProvidersForm';
 import { PROVIDER_QUERY, PROVIDERS_MUTATION } from '../queries/providers';
 class AddProvider extends React.Component {
   state = {};
@@ -57,6 +57,7 @@ class AddProvider extends React.Component {
             <ProvidersForm
               mutation={providers}
               onSubmit={this.onSubmit}
+              loading={loading}
               {...values}
             />
           );

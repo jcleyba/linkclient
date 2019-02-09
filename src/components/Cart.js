@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-  List,
-  Segment,
-  Header,
-  Label,
-  Input,
-  Button,
-  Message,
-} from 'semantic-ui-react';
+import { List, Segment, Header, Label, Input } from 'semantic-ui-react';
 import CartItem from './CartItem';
 import { Consumer } from '../app/App';
-import { Mutation } from 'react-apollo';
-import { SALES_MUTATION } from '../queries/sales';
+import Checkout from './Checkout';
 
 const Cart = props => {
   const [items, setItems] = useState(props.items || []);
@@ -73,31 +64,6 @@ const Cart = props => {
     return pay - tot;
   };
 
-  const parseDetails = cart => {
-    if (!cart) return [];
-
-    return cart.map(prod => {
-      return {
-        id_Product: parseInt(prod.id),
-        quantity: parseInt(prod.amount),
-        price: parseInt(prod.salePrice),
-      };
-    });
-  };
-
-  const renderMessage = (data, error) => {
-    if (!data && !error) {
-      return null;
-    }
-    return (
-      <Message
-        error={error}
-        positive={data && !!data.sales}
-        content={error ? 'Something went wrong' : 'Guardado!'}
-      />
-    );
-  };
-
   return (
     <Consumer>
       {({ cart, user, setCart }) => (
@@ -118,33 +84,12 @@ const Cart = props => {
               </List.Item>
             </List>
           </Segment>
-          <Mutation
-            mutation={SALES_MUTATION}
-            variables={{
-              type: 'C',
-              amount: parseInt(total),
-              id_User: parseInt(user.id),
-              details: parseDetails(cart),
-            }}
-            onCompleted={data => setCart([])}
-          >
-            {(sales, { data, loading, error }) => {
-              return (
-                <>
-                  {renderMessage(data, error)}
-                  <Button
-                    primary
-                    size="big"
-                    disabled={!cart.length}
-                    loading={loading}
-                    onClick={sales}
-                  >
-                    Guardar
-                  </Button>
-                </>
-              );
-            }}
-          </Mutation>
+          <Checkout
+            onCompleted={() => setCart([])}
+            user={user}
+            cart={cart}
+            total={total}
+          />
         </>
       )}
     </Consumer>

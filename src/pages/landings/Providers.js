@@ -3,16 +3,16 @@ import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { Header, Button, Icon, Segment } from 'semantic-ui-react';
 
-import ProductsTable from '../components/ProductsTable';
-import { PRODUCTS_QUERY } from '../queries/products';
+import ProvidersTable from '../../components/tables/ProvidersTable';
+import { PROVIDERS_QUERY } from '../../queries/providers';
+
 class Products extends React.Component {
   render() {
     const { match } = this.props;
-    const { id } = match.params;
 
     return (
-      <>
-        <Header as="h1">Productos</Header>
+      <div>
+        <Header as="h1">Proveedores</Header>
         <Button
           icon
           primary
@@ -23,19 +23,19 @@ class Products extends React.Component {
           <Icon name="add" />
           Nuevo
         </Button>
-        <Query query={PRODUCTS_QUERY} variables={{ id }}>
+        <Query query={PROVIDERS_QUERY} fetchPolicy="cache-and-network">
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return `Error! ${error.message}`;
 
             return (
               <Segment>
-                <ProductsTable data={data.products || []} />
+                <ProvidersTable data={data.providers || []} />
               </Segment>
             );
           }}
         </Query>
-      </>
+      </div>
     );
   }
 }
