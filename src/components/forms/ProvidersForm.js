@@ -66,7 +66,7 @@ export default class ProvidersForm extends React.Component {
             <input
               placeholder="Nombre"
               name="name"
-              value={this.state.name}
+              value={this.state.name || ''}
               onChange={this.onInputChange}
             />
           </Form.Field>
@@ -75,7 +75,7 @@ export default class ProvidersForm extends React.Component {
             <input
               placeholder="Apellido"
               name="apellido"
-              value={this.state.apellido}
+              value={this.state.apellido || ''}
               onChange={this.onInputChange}
             />
           </Form.Field>
@@ -88,7 +88,7 @@ export default class ProvidersForm extends React.Component {
               required
               placeholder="Email"
               name="email"
-              value={this.state.email}
+              value={this.state.email || ''}
               onChange={this.onInputChange}
             />
           </Form.Field>

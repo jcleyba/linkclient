@@ -39,6 +39,7 @@ function Checkout(props) {
       amount: parseInt(props.total),
       id_User: parseInt(props.user.id),
       details: parseDetails(props.cart),
+      id_PaymentMethod: parseInt(props.method),
     };
   };
 

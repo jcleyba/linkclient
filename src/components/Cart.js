@@ -4,11 +4,13 @@ import { List, Segment, Header, Label, Input } from 'semantic-ui-react';
 import CartItem from './CartItem';
 import { Consumer } from '../app/App';
 import Checkout from './Checkout';
+import PaymentMethod from './PaymentMethod';
 
 const Cart = props => {
   const [items, setItems] = useState(props.items || []);
   const [payment, setPayment] = useState(0);
   let total = 0;
+  let method = 1;
 
   // Hooks!!
   useEffect(() => {
@@ -64,6 +66,10 @@ const Cart = props => {
     return pay - tot;
   };
 
+  const setMethod = methodId => {
+    method = methodId;
+  };
+
   return (
     <Consumer>
       {({ cart, user, setCart }) => (
@@ -75,6 +81,8 @@ const Cart = props => {
               {renderTotal(cart)}
               <List.Item>
                 Paga con: {renderPayment()}
+                {'  '}
+                Método: <PaymentMethod onMethodChange={setMethod} />
                 <Label size="big" tag color="orange" style={{ marginLeft: 30 }}>
                   Total: ${total}
                 </Label>
@@ -89,6 +97,7 @@ const Cart = props => {
             user={user}
             cart={cart}
             total={total}
+            method={method}
           />
         </>
       )}

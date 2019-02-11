@@ -28,7 +28,11 @@ class AddProvider extends React.Component {
 
   renderQuery = (id, values) => {
     return (
-      <Query query={PROVIDER_QUERY} variables={{ id }}>
+      <Query
+        query={PROVIDER_QUERY}
+        variables={{ id }}
+        fetchPolicy="cache-and-network"
+      >
         {({ loading, error, data }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;

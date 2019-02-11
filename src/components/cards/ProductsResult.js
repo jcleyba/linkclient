@@ -14,7 +14,7 @@ class Result extends React.Component {
     const { amount } = this.state;
     const { product, onSelect } = this.props;
 
-    if (!product.stock) {
+    if (product.stock < 1) {
       return <Message error>Sin stock</Message>;
     }
 

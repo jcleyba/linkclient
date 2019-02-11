@@ -7,7 +7,7 @@ export const PROVIDERS_MUTATION = gql`
     $name: String!
     $apellido: String
     $razonSocial: String!
-    $email: String!
+    $email: String
     $phoneNumber1: Float
     $phoneNumber2: Float
   ) {

@@ -40,16 +40,18 @@ const Login = props => {
 
   const renderErrorMessage = error => {
     const { errorMsg } = state;
-    if (!error || !errorMsg.length) {
-      return null;
+
+    if (error || errorMsg.length) {
+      return (
+        <Message error header="Error" content={errorMsg || error.message} />
+      );
     }
-    return <Message error header="Error" content={errorMsg || error.message} />;
   };
 
   const renderForm = (login, loading, error) => {
     const { email, password, errorMsg } = state;
     return (
-      <Form onSubmit={login} error={!!error || !errorMsg.length}>
+      <Form onSubmit={login} error={error || !!errorMsg.length}>
         {renderErrorMessage(error)}
         <Form.Field>
           <label>Email</label>
