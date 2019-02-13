@@ -31,10 +31,6 @@ export default class ProvidersTable extends React.Component {
         accessor: 'phoneNumber1',
       },
       {
-        Header: 'Teléfono 2',
-        accessor: 'phoneNumber2',
-      },
-      {
         id: 'id',
         Header: 'Acciones',
         minWidth: 120,

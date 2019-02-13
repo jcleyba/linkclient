@@ -72,7 +72,7 @@ class AddProduct extends React.Component {
             mutation={products}
             onSubmit={this.onSubmit}
             loading={loading}
-            {...values}
+            initialValues={values}
           />
         )}
       </Mutation>

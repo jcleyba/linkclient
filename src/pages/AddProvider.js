@@ -62,7 +62,7 @@ class AddProvider extends React.Component {
               mutation={providers}
               onSubmit={this.onSubmit}
               loading={loading}
-              {...values}
+              initialValues={values}
             />
           );
         }}

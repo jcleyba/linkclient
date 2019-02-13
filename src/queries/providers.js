@@ -26,6 +26,15 @@ export const PROVIDERS_MUTATION = gql`
   }
 `;
 
+export const PROVIDERS_SELECT_QUERY = gql`
+  query ProvidersQuery {
+    providers {
+      id
+      razonSocial
+    }
+  }
+`;
+
 export const PROVIDERS_QUERY = gql`
   query ProvidersQuery {
     providers {
