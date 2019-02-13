@@ -6,7 +6,9 @@ export const CASHOUTS_QUERY = gql`
       id
       description
       amount
-      id_User
+      user {
+        username
+      }
       updatedAt
     }
   }
@@ -18,7 +20,9 @@ export const CASHOUT_QUERY = gql`
       id
       description
       amount
-      id_User
+      user {
+        username
+      }
       updatedAt
     }
   }

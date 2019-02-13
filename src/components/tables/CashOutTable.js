@@ -27,7 +27,7 @@ const CashOutTable = props => {
     },
     {
       Header: 'Usuario',
-      accessor: 'id_User',
+      accessor: 'user.username',
     },
     {
       id: 'id',
