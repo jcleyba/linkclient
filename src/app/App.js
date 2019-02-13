@@ -32,7 +32,7 @@ const App = props => {
               }}
             >
               <BrowserRouter>
-                <WithSidebar>
+                <WithSidebar user={user}>
                   <Router />
                 </WithSidebar>
               </BrowserRouter>

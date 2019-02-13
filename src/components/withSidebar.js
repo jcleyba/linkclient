@@ -13,6 +13,10 @@ const withSidebar = props => (
       visible
       width="thin"
     >
+      <Menu.Item>
+        <Icon name="user" />
+        Bienvenido {props.user.username}
+      </Menu.Item>
       <Menu.Item as={Link} to="/">
         <Icon name="cart" />
         Vender

@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactTable from 'react-table';
-import { Button } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
 import { format } from 'date-fns';
 
+import { Consumer } from '../../app/App';
 import { CASHOUTS_DELETE } from '../../queries/cashouts';
+import { ROLES, ADMIN } from '../../constants';
 
-const CashOutTable = props => {
+const renderTable = props => {
   const columns = [
     {
       Header: 'Fecha',
@@ -53,7 +55,23 @@ const CashOutTable = props => {
   ];
 
   return (
-    <ReactTable defaultPageSize={10} data={props.data} columns={columns} />
+    <Segment>
+      <ReactTable defaultPageSize={10} data={props.data} columns={columns} />
+    </Segment>
+  );
+};
+
+const isAdmin = user => {
+  return user && ROLES[user.id_UserType] === ADMIN;
+};
+
+const CashOutTable = props => {
+  return (
+    <Consumer>
+      {({ user }) => {
+        if (isAdmin(user)) return renderTable(props);
+      }}
+    </Consumer>
   );
 };
 

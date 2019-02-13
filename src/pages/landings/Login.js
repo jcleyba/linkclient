@@ -14,6 +14,7 @@ import { LOGIN_MUTATION } from '../../queries/users';
 import { Consumer } from '../../app/App';
 
 const Login = props => {
+  let setNewUser;
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -25,12 +26,13 @@ const Login = props => {
   };
 
   useEffect(() => {
+    setNewUser({});
     sessionStorage.clear();
   }, []);
 
-  const onCompleted = ({ login }, setUser) => {
+  const onCompleted = ({ login }) => {
     if (login) {
-      setUser(login);
+      setNewUser(login);
       sessionStorage.setItem('token', login.token);
       props.history.push('/');
     } else {
@@ -91,13 +93,14 @@ const Login = props => {
     <>
       <Consumer>
         {({ setUser }) => {
+          setNewUser = setUser;
           return (
             <Segment>
               <Header>Login</Header>
               <Mutation
                 mutation={LOGIN_MUTATION}
                 variables={{ email: state.email, password: state.password }}
-                onCompleted={data => onCompleted(data, setUser)}
+                onCompleted={data => onCompleted(data)}
               >
                 {(login, { loading, error }) =>
                   renderForm(login, loading, error)

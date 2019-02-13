@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Icon, Button, Header } from 'semantic-ui-react';
+import { Icon, Button, Header } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
@@ -26,14 +26,12 @@ const CashOut = props => {
         {({ loading, error, data, refetch }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
-          console.log(data.cashouts);
+
           return (
-            <Segment>
-              <CashOutTable
-                data={data.cashouts || []}
-                onDelete={() => refetch()}
-              />
-            </Segment>
+            <CashOutTable
+              data={data.cashouts || []}
+              onDelete={() => refetch()}
+            />
           );
         }}
       </Query>
