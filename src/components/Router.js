@@ -84,7 +84,7 @@ const CustomRouter = () => (
       <PrivateRoute path="/providers" component={ProviderRoutes} />
       <PrivateRoute path="/cash-flow" component={CashFlow} />
       <PrivateRoute path="/cash-out" component={CashOutRoutes} />
-      <Route path="/*" component={AddSale} />
+      <Route path="/*" component={Login} />
     </Switch>
   </div>
 );
