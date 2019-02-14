@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 
 function ProvidersForm(props) {
-  const [state, setState] = useState({ ...props.initialValues });
+  const [state, setState] = useState(props.initialValues);
 
   const onInputChange = ({ target }) => {
-    setState({
-      [target.name]: target.value,
-    });
+    setState({ ...state, [target.name]: target.value });
   };
 
   const onSubmit = () => {

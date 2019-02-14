@@ -4,7 +4,7 @@ import ProvidersSelect from '../selects/ProvidersSelect';
 import ProductTypesSelect from '../selects/ProductTypesSelect';
 
 function ProductsForm(props) {
-  const [state, setState] = useState({ ...props.initialValues });
+  const [state, setState] = useState(props.initialValues);
 
   let id_Provider = props.initialValues.id_Provider || '';
   let id_ProductType = props.initialValues.id_ProductType || '';
@@ -18,17 +18,15 @@ function ProductsForm(props) {
   };
 
   const onInputChange = ({ target }) => {
-    setState({
-      [target.name]: target.value,
-    });
+    setState({ ...state, [target.name]: target.value });
   };
 
   const onSubmit = () => {
     props.onSubmit(
       {
         ...state,
-        id_ProductType: this.id_ProductType,
-        id_Provider: this.id_Provider,
+        id_ProductType: id_ProductType,
+        id_Provider: id_Provider,
       },
       this.props.mutation
     );
