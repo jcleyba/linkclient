@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTable from 'react-table';
 import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { format } from 'date-fns';
+import { DateFormatCell, MoneyCell } from '../cells/FormatedCell';
 
 import { Consumer } from '../../app/App';
 import { CASHOUTS_DELETE } from '../../queries/cashouts';
@@ -13,11 +13,7 @@ const renderTable = props => {
     {
       Header: 'Fecha',
       accessor: 'updatedAt',
-      Cell: cell => (
-        <div>
-          {format(new Date(cell.original.updatedAt), 'DD/MMM/YYYY HH:mm')}
-        </div>
-      ),
+      Cell: cell => <DateFormatCell value={cell.original.updatedAt} />,
     },
     {
       Header: 'Concepto',
@@ -26,6 +22,7 @@ const renderTable = props => {
     {
       Header: 'Monto',
       accessor: 'amount', // Custom value accessors!
+      Cell: cell => <MoneyCell value={cell.original.amount} />,
     },
     {
       Header: 'Usuario',

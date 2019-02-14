@@ -65,7 +65,11 @@ const AddSale = props => {
     }
 
     return (
-      <Query query={SEARCH_QUERY} variables={{ term }}>
+      <Query
+        query={SEARCH_QUERY}
+        variables={{ term }}
+        fetchPolicy="cache-and-network"
+      >
         {({ loading, error, data }) => {
           if (loading) {
             return <div>Buscando...</div>;

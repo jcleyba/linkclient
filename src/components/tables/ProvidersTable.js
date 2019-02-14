@@ -2,6 +2,7 @@ import React from 'react';
 import ReactTable from 'react-table';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { CenteredCell } from '../cells/FormatedCell';
 
 export default class ProvidersTable extends React.Component {
   render() {
@@ -21,6 +22,7 @@ export default class ProvidersTable extends React.Component {
       {
         Header: 'Razon Social',
         accessor: 'razonSocial',
+        Cell: cell => <CenteredCell value={cell.original.razonSocial} />,
       },
       {
         Header: 'Email',
