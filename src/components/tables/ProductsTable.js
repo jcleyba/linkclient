@@ -10,6 +10,9 @@ export default class ProductsTable extends React.Component {
         accessor: 'codProduct',
         filterMethod: (filter, row) =>
           row[filter.id].toLowerCase().startsWith(filter.value.toLowerCase()),
+        Cell: cell => (
+          <div style={{ textAlign: 'center' }}>{cell.original.codProduct}</div>
+        ),
       },
       {
         Header: 'Descripción',
@@ -21,16 +24,25 @@ export default class ProductsTable extends React.Component {
         Header: 'Stock',
         accessor: 'stock',
         filterable: false, // Custom value accessors!
+        Cell: cell => (
+          <div style={{ textAlign: 'center' }}>{cell.original.stock}</div>
+        ),
       },
       {
         Header: 'Precio Venta',
         accessor: 'salePrice',
         filterable: false,
+        Cell: cell => (
+          <div style={{ textAlign: 'center' }}>{cell.original.salePrice}</div>
+        ),
       },
       {
         Header: 'Precio Costo',
         accessor: 'costPrice',
         filterable: false,
+        Cell: cell => (
+          <div style={{ textAlign: 'center' }}>{cell.original.costPrice}</div>
+        ),
       },
       {
         id: 'id',

@@ -26,7 +26,7 @@ const CashOut = props => {
         {({ loading, error, data, refetch }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
-          console.log(data.cashouts);
+
           return (
             <Segment>
               <CashOutTable

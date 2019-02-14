@@ -21,6 +21,9 @@ export default class ProvidersTable extends React.Component {
       {
         Header: 'Razon Social',
         accessor: 'razonSocial',
+        Cell: cell => (
+          <div style={{ textAlign: 'center' }}>{cell.original.razonSocial}</div>
+        ),
       },
       {
         Header: 'Email',
