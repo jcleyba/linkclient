@@ -2,6 +2,8 @@ import React from 'react';
 import ReactTable from 'react-table';
 import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { CenteredCell } from '../cells/FormatedCell';
+
 export default class ProductsTable extends React.Component {
   render() {
     const columns = [
@@ -10,6 +12,7 @@ export default class ProductsTable extends React.Component {
         accessor: 'codProduct',
         filterMethod: (filter, row) =>
           row[filter.id].toLowerCase().startsWith(filter.value.toLowerCase()),
+        Cell: cell => <CenteredCell value={cell.original.codProduct} />,
       },
       {
         Header: 'Descripción',
@@ -21,16 +24,19 @@ export default class ProductsTable extends React.Component {
         Header: 'Stock',
         accessor: 'stock',
         filterable: false, // Custom value accessors!
+        Cell: cell => <CenteredCell value={cell.original.stock} />,
       },
       {
         Header: 'Precio Venta',
         accessor: 'salePrice',
         filterable: false,
+        Cell: cell => <CenteredCell value={cell.original.salePrice} />,
       },
       {
         Header: 'Precio Costo',
         accessor: 'costPrice',
         filterable: false,
+        Cell: cell => <CenteredCell value={cell.original.costPrice} />,
       },
       {
         id: 'id',

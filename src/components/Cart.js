@@ -93,7 +93,10 @@ const Cart = props => {
             </List>
           </Segment>
           <Checkout
-            onCompleted={() => setCart([])}
+            onCompleted={() => {
+              setCart([]);
+              setPayment(0);
+            }}
             user={user}
             cart={cart}
             total={total}
