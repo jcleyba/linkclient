@@ -1,53 +1,43 @@
 import React from 'react';
 import ReactTable from 'react-table';
-import { format } from 'date-fns';
+import { CenteredCell, DateFormatCell, MoneyCell } from '../cells/FormatedCell';
 
 const CashShiftTable = props => {
   const columns = [
     {
       Header: 'Inicio',
       accessor: 'shiftStart',
-      Cell: cell => (
-        <div>
-          {format(new Date(cell.original.shiftStart), 'DD/MMM/YYYY HH:mm')}
-        </div>
-      ),
+      Cell: cell => <DateFormatCell value={cell.original.shiftStart} />,
     },
     {
       Header: 'Cierre',
       accessor: 'createdAt',
-      Cell: cell => (
-        <div style={{ textAlign: 'center' }}>
-          {format(new Date(cell.original.shiftStart), 'DD/MMM/YYYY HH:mm')}
-        </div>
-      ),
+      Cell: cell => <DateFormatCell value={cell.original.createdAt} />,
     },
     {
       Header: 'Usuario',
       accessor: 'id_User',
-      Cell: cell => (
-        <div style={{ textAlign: 'center' }}>{cell.original.id_User}</div>
-      ),
+      Cell: cell => <CenteredCell value={cell.original.id_User} />,
     },
     {
       Header: 'Ventas',
       accessor: 'salesSum',
-      Cell: cell => <div>{'$' + cell.original.salesSum}</div>,
+      Cell: cell => <MoneyCell value={cell.original.salesSum} />,
     },
     {
       Header: 'Caja Inicio',
       accessor: 'sumPrior',
-      Cell: cell => <div>{'$' + cell.original.sumPrior}</div>,
+      Cell: cell => <MoneyCell value={cell.original.sumPrior} />,
     },
     {
       Header: 'Egresos',
       accessor: 'cashOutSum',
-      Cell: cell => <div>{'$' + cell.original.cashOutSum}</div>,
+      Cell: cell => <MoneyCell value={cell.original.cashOutSum} />,
     },
     {
       Header: 'Deja en Caja',
       accessor: 'existingAmount',
-      Cell: cell => <div>{'$' + cell.original.existingAmount}</div>,
+      Cell: cell => <MoneyCell value={cell.original.existingAmount} />,
     },
     {
       id: 'result',
