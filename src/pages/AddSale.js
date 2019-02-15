@@ -13,6 +13,12 @@ const AddSale = props => {
   const [term, setTerm] = useState(props.term || '');
   let inputEl = useRef(null);
 
+  const checkExistingProduct = (product, cart) => {
+    return cart.some(prod => {
+      return prod.codProduct === product.codProduct;
+    });
+  };
+
   const addProductToCart = (cart, product, setCart) => {
     setTerm('');
     setCart([...cart, product]);
@@ -31,6 +37,7 @@ const AddSale = props => {
               data.search.map((item, index) => {
                 return (
                   <Result
+                    productAdded={checkExistingProduct(item, cart)}
                     key={index}
                     product={item}
                     onSelect={product =>
@@ -97,7 +104,7 @@ const AddSale = props => {
   };
 
   const renderCart = () => {
-    return <Consumer>{({ cart }) => <Cart items={cart} />}</Consumer>;
+    return <Cart />;
   };
 
   return (
