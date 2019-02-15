@@ -44,7 +44,6 @@ const CashShiftForm = ({ user, onCompleted }) => {
                   type="text"
                   onChange={e => setObservation(e.target.value)}
                   value={observation}
-                  required
                   placeholder="Observación"
                 />
               </Form.Field>
@@ -57,7 +56,10 @@ const CashShiftForm = ({ user, onCompleted }) => {
               header="CIERRE DE CAJA"
               content="Seguro de cerrar su turno de caja?"
               onCancel={() => setOpen(false)}
-              onConfirm={cashshift}
+              onConfirm={() => {
+                setOpen(false);
+                cashshift();
+              }}
             />
           </Form>
         );
