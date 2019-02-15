@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { List, Segment, Header, Label, Input } from 'semantic-ui-react';
 import CartItem from './CartItem';
-import { Consumer } from '../app/App';
+import { Context } from '../app/App';
 import Checkout from './Checkout';
 import PaymentMethod from './PaymentMethod';
 
 const Cart = props => {
-  const [items, setItems] = useState(props.items || []);
+  const { cart, setCart, user } = useContext(Context);
   const [payment, setPayment] = useState(0);
+
   let total = 0;
   let method = 1;
-
-  // Hooks!!
-  useEffect(() => {
-    setItems(props.items);
-  }, [props.items, items]);
-
-  const removeItem = index => setItems([...items.splice(index, 1)]);
 
   const renderItems = items => {
     if (!items) return null;
 
-    return items.map((prod, i) => {
+    return items.map((prod, index) => {
       const subtotal = prod.salePrice * prod.amount;
       return (
         <CartItem
           subtotal={subtotal}
           item={prod}
-          key={i}
-          removeItem={() => removeItem(i)}
+          key={index}
+          removeItem={() => {
+            const newCart = items.filter((a, b) => b !== index);
+            setCart([...newCart]);
+          }}
         />
       );
     });
@@ -71,40 +68,36 @@ const Cart = props => {
   };
 
   return (
-    <Consumer>
-      {({ cart, user, setCart }) => (
-        <>
-          <Segment>
-            <Header>Carrito</Header>
-            <List divided relaxed>
-              {renderItems(cart)}
-              {renderTotal(cart)}
-              <List.Item>
-                Paga con: {renderPayment()}
-                {'  '}
-                Método: <PaymentMethod onMethodChange={setMethod} />
-                <Label size="big" tag color="orange" style={{ marginLeft: 30 }}>
-                  Total: ${total}
-                </Label>
-                <Label size="big" tag>
-                  Vuelto: ${renderRemain()}
-                </Label>
-              </List.Item>
-            </List>
-          </Segment>
-          <Checkout
-            onCompleted={() => {
-              setCart([]);
-              setPayment(0);
-            }}
-            user={user}
-            cart={cart}
-            total={total}
-            method={method}
-          />
-        </>
-      )}
-    </Consumer>
+    <>
+      <Segment>
+        <Header>Carrito</Header>
+        <List divided relaxed>
+          {renderItems(cart)}
+          {renderTotal(cart)}
+          <List.Item>
+            Paga con: {renderPayment()}
+            {'  '}
+            Método: <PaymentMethod onMethodChange={setMethod} />
+            <Label size="big" tag color="orange" style={{ marginLeft: 30 }}>
+              Total: ${total}
+            </Label>
+            <Label size="big" tag>
+              Vuelto: ${renderRemain()}
+            </Label>
+          </List.Item>
+        </List>
+      </Segment>
+      <Checkout
+        onCompleted={() => {
+          setCart([]);
+          setPayment(0);
+        }}
+        user={user}
+        cart={cart}
+        total={total}
+        method={method}
+      />
+    </>
   );
 };
 

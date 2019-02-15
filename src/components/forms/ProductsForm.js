@@ -25,10 +25,10 @@ function ProductsForm(props) {
     props.onSubmit(
       {
         ...state,
-        id_ProductType: id_ProductType,
-        id_Provider: id_Provider,
+        id_ProductType,
+        id_Provider,
       },
-      this.props.mutation
+      props.mutation
     );
   };
 

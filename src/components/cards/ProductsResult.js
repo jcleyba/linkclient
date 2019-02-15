@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Input, Card, Message } from 'semantic-ui-react';
+import { Button, Input, Card, Message, Form } from 'semantic-ui-react';
 
 class Result extends React.Component {
   state = {
@@ -10,33 +10,42 @@ class Result extends React.Component {
     this.setState({ amount: target.value });
   };
 
+  renderButton = (productAdded, disableByStock) => {
+    return (
+      <Button
+        color={productAdded ? 'red' : 'blue'}
+        type="submit"
+        disabled={this.state.amount < 1 || productAdded || disableByStock}
+      >
+        {productAdded ? 'Agregado' : 'Agregar'}
+      </Button>
+    );
+  };
+
   renderInput = () => {
     const { amount } = this.state;
-    const { product, onSelect } = this.props;
+    const { product, onSelect, productAdded } = this.props;
 
     if (product.stock < 1) {
       return <Message error>Sin stock</Message>;
     }
+    const disableByStock = amount > product.stock;
 
     return (
-      <Input
-        action
-        type="number"
-        min="1"
-        value={this.state.amount}
-        onChange={this.onAmountChange}
-        placeholder="Cantidad"
-      >
-        <input />
-        <Button
-          primary
-          type="submit"
-          disabled={this.state.amount < 1}
-          onClick={() => onSelect({ ...product, amount })}
+      <Form onSubmit={() => onSelect({ ...product, amount })}>
+        <Input
+          action
+          type="number"
+          min="1"
+          max={product.stock}
+          value={amount}
+          onChange={this.onAmountChange}
+          placeholder="Cantidad"
         >
-          Agregar
-        </Button>
-      </Input>
+          <input />
+          {this.renderButton(productAdded, disableByStock)}
+        </Input>
+      </Form>
     );
   };
 

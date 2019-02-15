@@ -10,32 +10,42 @@ export default class ProvidersTable extends React.Component {
       {
         Header: 'CUIT',
         accessor: 'cuit',
+        filterable: false,
       },
       {
         Header: 'Nombre',
         accessor: 'name',
+        filterMethod: (filter, row) =>
+          row[filter.id].toLowerCase().includes(filter.value.toLowerCase()),
       },
       {
         Header: 'Apellido',
         accessor: 'apellido',
+        filterable: false,
       },
       {
         Header: 'Razon Social',
         accessor: 'razonSocial',
+        filterMethod: (filter, row) =>
+          row[filter.id].toLowerCase().includes(filter.value.toLowerCase()),
         Cell: cell => <CenteredCell value={cell.original.razonSocial} />,
       },
       {
         Header: 'Email',
         accessor: 'email',
+        filterable: false,
       },
       {
         Header: 'Teléfono 1',
         accessor: 'phoneNumber1',
+        filterable: false,
       },
       {
         id: 'id',
         Header: 'Acciones',
         minWidth: 120,
+        filterable: false,
+
         Cell: props => (
           <div>
             <Button
@@ -59,6 +69,7 @@ export default class ProvidersTable extends React.Component {
 
     return (
       <ReactTable
+        filterable
         defaultPageSize={10}
         data={this.props.data}
         columns={columns}

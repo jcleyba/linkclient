@@ -7,7 +7,9 @@ import Router from '../components/Router';
 
 import './App.css';
 import { AUTH_QUERY } from '../queries/users';
-const Context = React.createContext();
+
+export const Context = React.createContext();
+export const Consumer = Context.Consumer;
 
 const App = props => {
   const [cart, setCart] = useState([]);
@@ -43,5 +45,5 @@ const App = props => {
     </div>
   );
 };
-export const Consumer = Context.Consumer;
+
 export default App;
