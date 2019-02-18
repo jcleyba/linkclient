@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import {
   Form,
@@ -11,10 +11,10 @@ import {
 import { Mutation } from 'react-apollo';
 
 import { LOGIN_MUTATION } from '../../queries/users';
-import { Consumer } from '../../app/App';
+import { Context } from '../../app/App';
 
 const Login = props => {
-  let setNewUser;
+  const { setUser } = useContext(Context);
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -26,14 +26,14 @@ const Login = props => {
   };
 
   useEffect(() => {
-    setNewUser({});
+    setUser({});
     sessionStorage.clear();
   }, []);
 
   const onCompleted = ({ login }) => {
     if (login) {
-      setNewUser(login);
-      sessionStorage.setItem('token', login.token);
+      setUser(login);
+      sessionStorage.setItem('user', JSON.stringify(login));
       props.history.push('/');
     } else {
       setState({ ...state, errorMsg: 'Email o contraseña inválidos.' });
@@ -91,25 +91,16 @@ const Login = props => {
 
   return (
     <>
-      <Consumer>
-        {({ setUser }) => {
-          setNewUser = setUser;
-          return (
-            <Segment>
-              <Header>Login</Header>
-              <Mutation
-                mutation={LOGIN_MUTATION}
-                variables={{ email: state.email, password: state.password }}
-                onCompleted={data => onCompleted(data)}
-              >
-                {(login, { loading, error }) =>
-                  renderForm(login, loading, error)
-                }
-              </Mutation>
-            </Segment>
-          );
-        }}
-      </Consumer>
+      <Segment>
+        <Header>Login</Header>
+        <Mutation
+          mutation={LOGIN_MUTATION}
+          variables={{ email: state.email, password: state.password }}
+          onCompleted={data => onCompleted(data)}
+        >
+          {(login, { loading, error }) => renderForm(login, loading, error)}
+        </Mutation>
+      </Segment>
     </>
   );
 };
