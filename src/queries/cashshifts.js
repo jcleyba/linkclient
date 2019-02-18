@@ -16,6 +16,22 @@ export const CASHSHIFTS_QUERY = gql`
   }
 `;
 
+export const FEWCASHSHIFTS_QUERY = gql`
+  query FewCashShiftsQuery($id: ID) {
+    fewcashshifts(id: $id) {
+      id
+      existingAmount
+      salesSum
+      cashOutSum
+      id_User
+      observation
+      createdAt
+      sumPrior
+      shiftStart
+    }
+  }
+`;
+
 export const CASHSHIFTS_MUTATION = gql`
   mutation CashShiftsMutation(
     $id: ID

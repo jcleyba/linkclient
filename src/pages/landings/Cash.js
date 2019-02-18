@@ -6,13 +6,13 @@ import { Consumer } from '../../app/App';
 import CashShiftForm from '../../components/forms/CashShiftForm';
 
 import CashShiftTable from '../../components/tables/CashShiftTable';
-import { CASHSHIFTS_QUERY } from '../../queries/cashshifts';
+import { FEWCASHSHIFTS_QUERY } from '../../queries/cashshifts';
 
 const Cash = props => {
   return (
     <div>
       <h1>Caja</h1>
-      <Query query={CASHSHIFTS_QUERY}>
+      <Query query={FEWCASHSHIFTS_QUERY}>
         {({ loading, error, data, refetch }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
@@ -29,7 +29,7 @@ const Cash = props => {
               </Segment>
 
               <Segment>
-                <CashShiftTable data={data.cashshifts || []} />
+                <CashShiftTable data={data.fewcashshifts || []} />
               </Segment>
             </>
           );
