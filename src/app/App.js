@@ -20,8 +20,7 @@ const App = props => {
       <Query query={AUTH_QUERY} className="App">
         {({ loading, error, data }) => {
           if (loading) return 'Loading...';
-          if (error) return `Error! ${error.message}`;
-          if (data.auth) {
+          if (data && data.auth) {
             setUser(data.auth);
           }
           return (
