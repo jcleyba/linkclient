@@ -14,7 +14,7 @@ dotenvConfig();
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GATEWAY_URI,
   request: async operation => {
-    const token = await sessionStorage.getItem('token');
+    const { token } = JSON.parse(sessionStorage.getItem('user')) || {};
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : '',

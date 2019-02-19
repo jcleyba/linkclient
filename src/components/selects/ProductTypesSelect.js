@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Query } from 'react-apollo';
 import { Form, Select } from 'semantic-ui-react';
 import { PRODUCTTYPES_QUERY } from '../../queries/producttypes';
+import ErrorMessage from '../ErrorMessage';
 
 function ProductTypesSelect(props) {
   const [type, setType] = useState(props.productType || '');
@@ -13,7 +14,7 @@ function ProductTypesSelect(props) {
   return (
     <Query query={PRODUCTTYPES_QUERY}>
       {({ loading, error, data }) => {
-        if (loading) return 'Loading...';
+        if (loading) return <ErrorMessage error={error} />;
         if (error) return `Error! ${error.message}`;
 
         return (

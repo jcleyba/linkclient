@@ -4,7 +4,7 @@ import { List, Segment, Header, Label, Input } from 'semantic-ui-react';
 import CartItem from './CartItem';
 import { Context } from '../app/App';
 import Checkout from './Checkout';
-import PaymentMethod from './PaymentMethod';
+import PaymentMethod from './selects/PaymentMethod';
 
 const Cart = props => {
   const { cart, setCart, user } = useContext(Context);

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Select } from 'semantic-ui-react';
-import { PAYMENTMETHODS_QUERY } from '../queries/paymentmethods';
+import { PAYMENTMETHODS_QUERY } from '../../queries/paymentmethods';
 import { Query } from 'react-apollo';
+import ErrorMessage from '../ErrorMessage';
 
 const PaymentMethod = props => {
   const [method, setMethod] = useState('1');
@@ -26,7 +27,8 @@ const PaymentMethod = props => {
     <Query query={PAYMENTMETHODS_QUERY}>
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
-        if (error || !data.paymentmethods) return 'Error!!';
+        if (error || !data.paymentmethods)
+          return <ErrorMessage error={error} />;
 
         return (
           <Select

@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { Input, Message, Card } from 'semantic-ui-react';
+import { Input, Card } from 'semantic-ui-react';
 import { debounce } from 'lodash';
 
 import { SEARCH_QUERY } from '../queries/products';
 import Result from '../components/cards/ProductsResult';
 import Cart from '../components/Cart';
 import { Consumer } from '../app/App';
+import ErrorMessage from '../components/ErrorMessage';
 
 const AddSale = props => {
   const [term, setTerm] = useState(props.term || '');
@@ -56,16 +57,6 @@ const AddSale = props => {
     setTerm(term);
   }, 500);
 
-  const handleError = error => {
-    if (error.includes('403')) {
-      sessionStorage.clear();
-      props.history.push('/login');
-      return;
-    }
-
-    return <Message error header="Error" content={error} />;
-  };
-
   const renderQuery = () => {
     if (term.length < 3) {
       return <div>Debe ingresar al menos 3 caracteres</div>;
@@ -81,9 +72,7 @@ const AddSale = props => {
           if (loading) {
             return <div>Buscando...</div>;
           }
-          if (error) {
-            handleError(error);
-          }
+          if (error) return <ErrorMessage error={error} />;
 
           return <div>{renderResults(data)}</div>;
         }}
