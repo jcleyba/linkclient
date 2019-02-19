@@ -89,6 +89,7 @@ const Cart = props => {
       </Segment>
       <Checkout
         onCompleted={() => {
+          props.reset();
           setCart([]);
           setPayment(0);
         }}

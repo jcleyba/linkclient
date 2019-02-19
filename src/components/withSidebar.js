@@ -37,6 +37,10 @@ const withSidebar = props => (
         <Icon name="money bill alternate" />
         Egresos
       </Menu.Item>
+      <Menu.Item as="a" onClick={() => props.history.push('/sales-reports')}>
+        <Icon name="chart area" />
+        Reporte Ventas
+      </Menu.Item>
       <Menu.Item as="a" onClick={() => props.history.push('/login')}>
         <Icon name="log out" />
         Logout

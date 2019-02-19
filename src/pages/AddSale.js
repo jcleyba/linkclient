@@ -20,10 +20,14 @@ const AddSale = props => {
     });
   };
 
-  const addProductToCart = (cart, product, setCart) => {
+  const reset = () => {
     setTerm('');
-    setCart([...cart, product]);
     inputEl.inputRef.value = '';
+  };
+
+  const addProductToCart = (cart, product, setCart) => {
+    reset();
+    setCart([...cart, product]);
   };
 
   const renderResults = data => {
@@ -93,7 +97,7 @@ const AddSale = props => {
   };
 
   const renderCart = () => {
-    return <Cart />;
+    return <Cart reset={reset} />;
   };
 
   return (

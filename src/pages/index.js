@@ -5,7 +5,9 @@ import Login from './landings/Login';
 import AddProduct from '../pages/AddProduct';
 import AddProvider from '../pages/AddProvider';
 import AddSale from '../pages/AddSale';
+import AddCashOut from '../pages/AddCashOut';
 import CashOut from './landings/CashOut';
+import SalesReports from './landings/SalesReports';
 
 export {
   Providers,
@@ -16,4 +18,6 @@ export {
   AddProvider,
   AddSale,
   CashOut,
+  SalesReports,
+  AddCashOut,
 };
