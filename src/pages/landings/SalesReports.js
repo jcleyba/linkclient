@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Query } from 'react-apollo';
 import { Header, Segment, Label } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
-import { isAfter, isBefore, startOfDay } from 'date-fns';
+import { isAfter, isBefore, startOfDay, endOfDay } from 'date-fns';
 
 import SaleTable from '../../components/tables/SaleTable';
 import { Context } from '../../app/App';
@@ -13,12 +13,11 @@ import { isAdmin } from '../../utils';
 
 function SalesReports(props) {
   const [startDate, setStartDate] = useState(startOfDay(new Date()));
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const { user } = useContext(Context);
 
   const handleChangeStart = date => {
     let startDate = date;
-    const { endDate } = this.state;
 
     if (isBefore(endDate, startDate)) {
       startDate = startOfDay(endDate);
@@ -29,10 +28,9 @@ function SalesReports(props) {
 
   const handleChangeEnd = date => {
     let endDate = date;
-    const { startDate } = this.state;
 
     if (isAfter(startDate, endDate)) {
-      endDate = startDate;
+      endDate = endOfDay(startDate);
     }
 
     setEndDate(endDate);
