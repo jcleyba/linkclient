@@ -4,6 +4,7 @@ import ProvidersSelect from '../selects/ProvidersSelect';
 import ProductTypesSelect from '../selects/ProductTypesSelect';
 
 function ProductsForm(props) {
+  const { stock: initialStock } = props.initialValues;
   const [state, setState] = useState(props.initialValues);
 
   let id_Provider = props.initialValues.id_Provider || '';
@@ -63,6 +64,7 @@ function ProductsForm(props) {
             name="stock"
             type="number"
             required
+            min={initialStock}
             value={state.stock}
             onChange={onInputChange}
           />
