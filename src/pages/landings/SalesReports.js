@@ -53,6 +53,7 @@ function SalesReports(props) {
               startDate={startDate}
               endDate={endDate}
               onChange={handleChangeStart}
+              dateFormat="dd/MM/yyyy"
             />
           </Label>
           <Label size="large">
@@ -63,6 +64,7 @@ function SalesReports(props) {
               startDate={startDate}
               endDate={endDate}
               onChange={handleChangeEnd}
+              dateFormat="dd/MM/yyyy"
             />
           </Label>
         </div>

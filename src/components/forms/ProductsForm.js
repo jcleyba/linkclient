@@ -5,7 +5,24 @@ import ProductTypesSelect from '../selects/ProductTypesSelect';
 
 function ProductsForm(props) {
   const { stock: initialStock } = props.initialValues;
-  const [state, setState] = useState(props.initialValues);
+  const {
+    stock = '',
+    minimumStock = '',
+    codProduct = '',
+    description = '',
+    salePrice = '',
+    costPrice = '',
+    ...other
+  } = props.initialValues;
+  const [state, setState] = useState({
+    stock,
+    minimumStock,
+    codProduct,
+    description,
+    salePrice,
+    costPrice,
+    ...other,
+  });
 
   let id_Provider = props.initialValues.id_Provider || '';
   let id_ProductType = props.initialValues.id_ProductType || '';
