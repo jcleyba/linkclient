@@ -34,3 +34,23 @@ export const SALES_QUERY = gql`
     }
   }
 `;
+
+export const SALESBYRANGE_QUERY = gql`
+  query SalesByRangeQuery($from: String!, $to: String!) {
+    salesbyrange(from: $from, to: $to) {
+      sum
+      sales {
+        number
+        type
+        amount
+        user {
+          username
+        }
+        paymentMethod {
+          description
+        }
+        createdAt
+      }
+    }
+  }
+`;

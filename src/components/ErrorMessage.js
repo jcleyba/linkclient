@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 function ErrorMessage(props) {
   const { error } = props;
-  if (error.message.includes('403')) {
+  if (error && error.message.includes('403')) {
     sessionStorage.clear();
     props.history.push('/login');
     return null;

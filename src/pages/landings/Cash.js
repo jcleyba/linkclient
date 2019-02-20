@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Query } from 'react-apollo';
 import { Segment, Header } from 'semantic-ui-react';
-import { Consumer } from '../../app/App';
+import { Context } from '../../app/App';
 
 import CashShiftForm from '../../components/forms/CashShiftForm';
 
 import CashShiftTable from '../../components/tables/CashShiftTable';
 import { FEWCASHSHIFTS_QUERY } from '../../queries/cashshifts';
+import { isAdmin } from '../../utils';
 
 const Cash = props => {
+  const { user } = useContext(Context);
+
+  const renderTable = data => {
+    if (!isAdmin(user)) {
+      return null;
+    }
+    return (
+      <Segment>
+        <CashShiftTable data={data.fewcashshifts || []} />
+      </Segment>
+    );
+  };
+
   return (
-    <div>
+    <>
       <h1>Caja</h1>
       <Query query={FEWCASHSHIFTS_QUERY}>
         {({ loading, error, data, refetch }) => {
@@ -21,21 +35,14 @@ const Cash = props => {
             <>
               <Header> Nueva Caja </Header>
               <Segment>
-                <Consumer>
-                  {({ user }) => (
-                    <CashShiftForm user={user} onCompleted={refetch} />
-                  )}
-                </Consumer>
+                <CashShiftForm user={user} onCompleted={refetch} />
               </Segment>
-
-              <Segment>
-                <CashShiftTable data={data.fewcashshifts || []} />
-              </Segment>
+              {renderTable(data)}
             </>
           );
         }}
       </Query>
-    </div>
+    </>
   );
 };
 
