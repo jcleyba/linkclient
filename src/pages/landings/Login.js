@@ -32,7 +32,6 @@ const Login = props => {
 
   const onCompleted = ({ login }) => {
     if (login) {
-      console.log(login);
       setUser(login);
       sessionStorage.setItem('user', JSON.stringify(login));
       props.history.push('/');
