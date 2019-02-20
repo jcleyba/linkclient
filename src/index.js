@@ -8,6 +8,7 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-table/react-table.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 dotenvConfig();
 

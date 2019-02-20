@@ -2,11 +2,9 @@ import React from 'react';
 import ReactTable from 'react-table';
 import { Button, Segment } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
-import { DateFormatCell, MoneyCell } from '../cells/FormatedCell';
 
-import { Consumer } from '../../app/App';
+import { DateFormatCell, MoneyCell } from '../cells/FormatedCell';
 import { CASHOUTS_DELETE } from '../../queries/cashouts';
-import { ROLES, ADMIN } from '../../constants';
 
 const renderTable = props => {
   const columns = [
@@ -58,18 +56,4 @@ const renderTable = props => {
   );
 };
 
-const isAdmin = user => {
-  return user && ROLES[user.id_UserType] === ADMIN;
-};
-
-const CashOutTable = props => {
-  return (
-    <Consumer>
-      {({ user }) => {
-        if (isAdmin(user)) return renderTable(props);
-      }}
-    </Consumer>
-  );
-};
-
-export default CashOutTable;
+export default renderTable;
