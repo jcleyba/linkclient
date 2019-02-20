@@ -17,3 +17,20 @@ export const SALES_MUTATION = gql`
     )
   }
 `;
+
+export const SALES_QUERY = gql`
+  query SalesQuery {
+    sales {
+      number
+      type
+      amount
+      user {
+        username
+      }
+      paymentMethod {
+        description
+      }
+      createdAt
+    }
+  }
+`;
