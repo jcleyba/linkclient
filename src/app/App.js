@@ -9,7 +9,7 @@ import './App.css';
 export const Context = React.createContext();
 export const Consumer = Context.Consumer;
 
-const getUser = async () => {
+const getUser = () => {
   return JSON.parse(sessionStorage.getItem('user'));
 };
 

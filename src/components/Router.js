@@ -10,8 +10,9 @@ import {
   AddProvider,
   AddSale,
   CashOut,
+  SalesReports,
+  AddCashOut,
 } from '../pages';
-import AddCashOut from '../pages/AddCashOut';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -84,6 +85,7 @@ const CustomRouter = () => (
       <PrivateRoute path="/providers" component={ProviderRoutes} />
       <PrivateRoute path="/cash-flow" component={CashFlow} />
       <PrivateRoute path="/cash-out" component={CashOutRoutes} />
+      <PrivateRoute path="/sales-reports" component={SalesReports} />
       <Route path="/*" component={Login} />
     </Switch>
   </div>
