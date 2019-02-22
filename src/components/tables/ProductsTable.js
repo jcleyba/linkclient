@@ -29,6 +29,7 @@ function ProductsTable(props) {
     }
     // update the state
     setSelection(selectionLocal);
+    props.updateSelection(selectionLocal);
   };
 
   const toggleAll = () => {
@@ -45,6 +46,7 @@ function ProductsTable(props) {
     }
     setSelectall(selectAllLocal);
     setSelection(selection);
+    props.updateSelection(selection);
   };
 
   const isSelected = key => selection.some(item => item.id === key);
@@ -92,7 +94,7 @@ function ProductsTable(props) {
       filterable: false,
       Cell: props => (
         <div>
-          <Button as={Link} primary to={`products/${props.original.id}/sales`}>
+          <Button as={Link} primary to={`/products/${props.original.id}/sales`}>
             Ventas
           </Button>
           <Button
