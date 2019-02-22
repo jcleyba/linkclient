@@ -42,6 +42,10 @@ const ProductRoutes = props => {
         component={AddProduct}
       />
       <PrivateRoute path={`${props.match.path}/add`} component={AddProduct} />
+      <PrivateRoute
+        path={`${props.match.path}/:id/sales`}
+        component={SalesReports}
+      />
     </Switch>
   );
 };

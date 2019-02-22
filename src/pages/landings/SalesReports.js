@@ -12,6 +12,9 @@ import { SALESBYRANGE_QUERY } from '../../queries/sales';
 import { isAdmin } from '../../utils';
 
 function SalesReports(props) {
+  const { match } = props;
+  const { id } = match.params;
+
   const [startDate, setStartDate] = useState(startOfDay(new Date()));
   const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const { user } = useContext(Context);
@@ -71,6 +74,7 @@ function SalesReports(props) {
         <Query
           query={SALESBYRANGE_QUERY}
           variables={{
+            id,
             from: startDate.toISOString(),
             to: endDate.toISOString(),
           }}

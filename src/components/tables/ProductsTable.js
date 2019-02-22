@@ -91,10 +91,13 @@ function ProductsTable(props) {
       Header: '',
       filterable: false,
       Cell: props => (
-        <div style={{ textAlign: 'center' }}>
+        <div>
+          <Button as={Link} primary to={`products/${props.original.id}/sales`}>
+            Ventas
+          </Button>
           <Button
             as={Link}
-            color="green"
+            color="teal"
             to={`/products/add/${props.original.id}`}
           >
             Editar

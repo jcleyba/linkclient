@@ -36,8 +36,8 @@ export const SALES_QUERY = gql`
 `;
 
 export const SALESBYRANGE_QUERY = gql`
-  query SalesByRangeQuery($from: String!, $to: String!) {
-    salesbyrange(from: $from, to: $to) {
+  query SalesByRangeQuery($id: ID, $from: String!, $to: String!) {
+    salesbyrange(id: $id, from: $from, to: $to) {
       sum
       sales {
         number
