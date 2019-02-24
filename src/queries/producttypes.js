@@ -8,3 +8,11 @@ export const PRODUCTTYPES_QUERY = gql`
     }
   }
 `;
+
+export const PRODUCTTYPES_MUTATION = gql`
+  mutation ProductTypesMutation($description: String!) {
+    producttypes(description: $description) {
+      description
+    }
+  }
+`;
