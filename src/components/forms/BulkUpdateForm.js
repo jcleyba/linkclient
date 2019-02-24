@@ -22,12 +22,14 @@ function BulkUpdateForm(props) {
     if (stock) {
       data = data.map(item => {
         item.stock = stock;
+
         return item;
       });
     }
     if (salePrice) {
       data = data.map(item => {
         item.salePrice = (item.salePrice * (100 + salePrice)) / 100;
+
         return item;
       });
     }
@@ -35,6 +37,7 @@ function BulkUpdateForm(props) {
     if (costPrice) {
       data = data.map(item => {
         item.costPrice = (item.costPrice * (100 + salePrice)) / 100;
+
         return item;
       });
     }
@@ -42,7 +45,7 @@ function BulkUpdateForm(props) {
     return data;
   };
 
-  const onCompleted = data => {
+  const onCompleted = () => {
     props.refetch();
   };
 
@@ -54,6 +57,7 @@ function BulkUpdateForm(props) {
     >
       {(bulkupdate, { data, loading, error }) => {
         if (error) return 'Algo salio mal...';
+
         return (
           <Form onSubmit={bulkupdate}>
             <Form.Group widths="equal">
@@ -79,7 +83,6 @@ function BulkUpdateForm(props) {
                   onChange={e => setSalePrice(parseFloat(e.target.value))}
                 />
               </Form.Field>
-
               <Form.Field>
                 <label>Porcentaje precio COSTO (sin el signo %)</label>
                 <input
