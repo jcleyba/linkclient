@@ -12,6 +12,8 @@ import {
   CashOut,
   SalesReports,
   AddCashOut,
+  ProductTypes,
+  AddProductType,
 } from '../pages';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -80,6 +82,26 @@ const ProviderRoutes = props => {
   );
 };
 
+const ProductTypesRoutes = props => {
+  return (
+    <Switch>
+      <PrivateRoute
+        exact
+        path={`${props.match.path}`}
+        component={ProductTypes}
+      />
+      <PrivateRoute
+        path={`${props.match.path}/add`}
+        component={AddProductType}
+      />
+      <PrivateRoute
+        path={`${props.match.path}/:id/sales`}
+        component={SalesReports}
+      />
+    </Switch>
+  );
+};
+
 const CustomRouter = () => (
   <div>
     <Switch>
@@ -90,6 +112,7 @@ const CustomRouter = () => (
       <PrivateRoute path="/cash-flow" component={CashFlow} />
       <PrivateRoute path="/cash-out" component={CashOutRoutes} />
       <PrivateRoute path="/sales-reports" component={SalesReports} />
+      <PrivateRoute path="/product-types" component={ProductTypesRoutes} />
       <Route path="/*" component={Login} />
     </Switch>
   </div>

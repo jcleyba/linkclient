@@ -43,6 +43,14 @@ export const SEARCH_QUERY = gql`
   }
 `;
 
+export const PRODUCTS_BULK_MUTATION = gql`
+  mutation ProductsBulkMutation($prods: [ProductInput]!) {
+    productsbulkupdate(prods: $prods){
+      id
+    }
+  }
+`;
+
 export const PRODUCTS_MUTATION = gql`
   mutation ProductsMutation(
     $id: ID

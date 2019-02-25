@@ -41,6 +41,10 @@ const withSidebar = props => (
         <Icon name="chart area" />
         Reporte Ventas
       </Menu.Item>
+      <Menu.Item as={Link} to="/product-types">
+        <Icon name="food" />
+        Tipos de Productos
+      </Menu.Item>
       <Menu.Item as="a" onClick={() => props.history.push('/login')}>
         <Icon name="log out" />
         Logout
