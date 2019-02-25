@@ -17,7 +17,7 @@ const CashShiftTable = props => {
     {
       Header: 'Usuario',
       accessor: 'id_User',
-      Cell: cell => <CenteredCell value={cell.original.id_User} />,
+      Cell: cell => <CenteredCell value={cell.original.user.username} />,
     },
     {
       Header: 'Ventas',
@@ -46,6 +46,10 @@ const CashShiftTable = props => {
         const { sumPrior, salesSum, existingAmount, cashOutSum } = original;
         return <div>{existingAmount - sumPrior - (salesSum - cashOutSum)}</div>;
       },
+    },
+    {
+      Header: 'Obs',
+      accessor: 'observation',
     },
   ];
 

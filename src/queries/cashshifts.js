@@ -7,7 +7,9 @@ export const CASHSHIFTS_QUERY = gql`
       existingAmount
       salesSum
       cashOutSum
-      id_User
+      user {
+        username
+      }
       observation
       createdAt
       sumPrior
@@ -23,7 +25,9 @@ export const FEWCASHSHIFTS_QUERY = gql`
       existingAmount
       salesSum
       cashOutSum
-      id_User
+      user {
+        username
+      }
       observation
       createdAt
       sumPrior
