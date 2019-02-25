@@ -18,11 +18,10 @@ const Login = props => {
   const [state, setState] = useState({
     email: '',
     password: '',
-    errorMsg: '',
   });
 
   const onInputChange = ({ target }) => {
-    setState({ ...state, [target.name]: target.value, errorMsg: '' });
+    setState({ ...state, [target.name]: target.value });
   };
 
   useEffect(() => {
@@ -35,25 +34,23 @@ const Login = props => {
       setUser(login);
       sessionStorage.setItem('user', JSON.stringify(login));
       props.history.push('/');
-    } else {
-      setState({ ...state, errorMsg: 'Email o contraseña inválidos.' });
     }
   };
 
   const renderErrorMessage = error => {
-    const { errorMsg } = state;
+    let errorMessage = error && error.message;
 
-    if (error || errorMsg.length) {
-      return (
-        <Message error header="Error" content={errorMsg || error.message} />
-      );
+    if (errorMessage && errorMessage.includes('401')) {
+      errorMessage = 'Usuario o contraseña incorrectos';
     }
+
+    return <Message error header="Error" content={errorMessage} />;
   };
 
   const renderForm = (login, loading, error) => {
-    const { email, password, errorMsg } = state;
+    const { email, password } = state;
     return (
-      <Form onSubmit={login} error={error || !!errorMsg.length}>
+      <Form onSubmit={login} error={error}>
         {renderErrorMessage(error)}
         <Form.Field>
           <label>Email</label>

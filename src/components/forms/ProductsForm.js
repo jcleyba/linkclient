@@ -23,16 +23,19 @@ function ProductsForm(props) {
     costPrice,
     ...other,
   });
+  const [enabled, setEnabled] = useState(false);
 
   let id_Provider = props.initialValues.id_Provider || '';
   let id_ProductType = props.initialValues.id_ProductType || '';
 
   const setProvider = provider => {
     id_Provider = provider;
+    setEnabled(id_Provider > 0 && id_ProductType > 0);
   };
 
   const setProductType = type => {
     id_ProductType = type;
+    setEnabled(id_Provider > 0 && id_ProductType > 0);
   };
 
   const onInputChange = ({ target }) => {
@@ -131,12 +134,7 @@ function ProductsForm(props) {
           setProductType={setProductType}
         />
       </Form.Group>
-      <Button
-        primary
-        type="submit"
-        loading={props.loading}
-        disabled={!id_Provider || !id_ProductType}
-      >
+      <Button primary type="submit" loading={props.loading} disabled={!enabled}>
         Submit
       </Button>
     </Form>

@@ -24,7 +24,7 @@ function Checkout(props) {
       return {
         id_Product: parseInt(prod.id),
         quantity: parseInt(prod.amount),
-        price: parseInt(prod.salePrice),
+        price: parseFloat(prod.salePrice),
       };
     });
   };
@@ -36,7 +36,7 @@ function Checkout(props) {
 
     return {
       type: 'C',
-      amount: parseInt(props.total),
+      amount: parseFloat(props.total),
       id_User: parseInt(props.user.id),
       details: parseDetails(props.cart),
       id_PaymentMethod: parseInt(props.method),

@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Icon, Button, Header } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
 import CashOutTable from '../../components/tables/CashOutTable';
 import { CASHOUTS_QUERY } from '../../queries/cashouts';
+import { Context } from '../../app/App';
 
 const CashOut = props => {
   const { match } = props;
-
+  const { user } = useContext(Context);
   return (
     <>
       <Header as="h1">Egresos</Header>
@@ -31,6 +32,7 @@ const CashOut = props => {
             <CashOutTable
               data={data.cashouts || []}
               onDelete={() => refetch()}
+              user={user}
             />
           );
         }}

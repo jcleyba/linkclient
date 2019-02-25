@@ -5,6 +5,7 @@ import { Mutation } from 'react-apollo';
 
 import { DateFormatCell, MoneyCell } from '../cells/FormatedCell';
 import { CASHOUTS_DELETE } from '../../queries/cashouts';
+import { isAdmin } from '../../utils';
 
 const renderTable = props => {
   const columns = [
@@ -38,7 +39,12 @@ const renderTable = props => {
           >
             {(deletecashout, { loading, error }) => {
               return (
-                <Button color="red" onClick={deletecashout} loading={loading}>
+                <Button
+                  color="red"
+                  onClick={deletecashout}
+                  loading={loading}
+                  disabled={!isAdmin(props.user)}
+                >
                   Eliminar
                 </Button>
               );

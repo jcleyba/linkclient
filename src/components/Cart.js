@@ -54,8 +54,8 @@ const Cart = props => {
   };
 
   const renderRemain = () => {
-    let pay = parseInt(payment);
-    let tot = parseInt(total);
+    let pay = parseFloat(payment);
+    let tot = parseFloat(total);
 
     pay = isNaN(pay) ? 0 : pay;
     tot = isNaN(tot) ? 0 : tot;
