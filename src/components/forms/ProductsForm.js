@@ -12,7 +12,8 @@ function ProductsForm(props) {
     description = '',
     salePrice = '',
     costPrice = '',
-    ...other
+    id_Provider = '',
+    id_ProductType = '',
   } = props.initialValues;
   const [state, setState] = useState({
     stock,
@@ -21,21 +22,16 @@ function ProductsForm(props) {
     description,
     salePrice,
     costPrice,
-    ...other,
+    id_Provider,
+    id_ProductType,
   });
-  const [enabled, setEnabled] = useState(false);
-
-  let id_Provider = props.initialValues.id_Provider || '';
-  let id_ProductType = props.initialValues.id_ProductType || '';
 
   const setProvider = provider => {
-    id_Provider = provider;
-    setEnabled(id_Provider > 0 && id_ProductType > 0);
+    setState({ ...state, id_Provider: provider });
   };
 
   const setProductType = type => {
-    id_ProductType = type;
-    setEnabled(id_Provider > 0 && id_ProductType > 0);
+    setState({ ...state, id_ProductType: type });
   };
 
   const onInputChange = ({ target }) => {
@@ -43,14 +39,7 @@ function ProductsForm(props) {
   };
 
   const onSubmit = () => {
-    props.onSubmit(
-      {
-        ...state,
-        id_ProductType,
-        id_Provider,
-      },
-      props.mutation
-    );
+    props.onSubmit(state, props.mutation);
   };
 
   return (
@@ -126,15 +115,20 @@ function ProductsForm(props) {
       </Form.Group>
       <Form.Group widths="equal">
         <ProvidersSelect
-          provider={id_Provider.toString()}
+          provider={state.id_Provider.toString()}
           setProvider={setProvider}
         />
         <ProductTypesSelect
-          productType={id_ProductType.toString()}
+          productType={state.id_ProductType.toString()}
           setProductType={setProductType}
         />
       </Form.Group>
-      <Button primary type="submit" loading={props.loading} disabled={!enabled}>
+      <Button
+        primary
+        type="submit"
+        loading={props.loading}
+        disabled={state.id_Provider < 1 || state.id_ProductType < 1}
+      >
         Submit
       </Button>
     </Form>

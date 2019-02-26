@@ -23,6 +23,7 @@ const AddSale = props => {
   const reset = () => {
     setTerm('');
     inputEl.inputRef.value = '';
+    inputEl.focus();
   };
 
   const addProductToCart = (cart, product, setCart) => {
