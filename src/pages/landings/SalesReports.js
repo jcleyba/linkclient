@@ -14,7 +14,7 @@ import { isAdmin } from '../../utils';
 function SalesReports(props) {
   const { match } = props;
   const { id } = match.params;
-
+  const isProductTypeQuery = match.path.includes('product-types');
   const [startDate, setStartDate] = useState(startOfDay(new Date()));
   const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const { user } = useContext(Context);
@@ -72,7 +72,9 @@ function SalesReports(props) {
           </Label>
         </div>
         <Query
-          query={SALESBYRANGE_QUERY}
+          query={
+            isProductTypeQuery ? SALESBYRANGE_QUERY : SALESBYRANGE_QUERY //Aca va la query para product type
+          }
           variables={{
             id,
             from: startDate.toISOString(),

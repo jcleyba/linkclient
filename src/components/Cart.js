@@ -26,6 +26,7 @@ const Cart = props => {
           removeItem={() => {
             const newCart = items.filter((a, b) => b !== index);
             setCart([...newCart]);
+            props.reset();
           }}
         />
       );
