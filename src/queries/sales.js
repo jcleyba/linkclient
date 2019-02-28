@@ -19,25 +19,8 @@ export const SALES_MUTATION = gql`
 `;
 
 export const SALES_QUERY = gql`
-  query SalesQuery {
-    sales {
-      number
-      type
-      amount
-      user {
-        username
-      }
-      paymentMethod {
-        description
-      }
-      createdAt
-    }
-  }
-`;
-
-export const SALESBYRANGE_QUERY = gql`
-  query SalesByRangeQuery($id: ID, $from: String!, $to: String!) {
-    salesbyrange(id: $id, from: $from, to: $to) {
+  query SalesQuery($from: String!, $to: String!) {
+    sales(from: $from, to: $to) {
       sum
       sales {
         number

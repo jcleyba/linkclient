@@ -44,7 +44,8 @@ const CashShiftTable = props => {
       Header: 'Resultado',
       Cell: ({ original }) => {
         const { sumPrior, salesSum, existingAmount, cashOutSum } = original;
-        return <div>{existingAmount - sumPrior - (salesSum - cashOutSum)}</div>;
+        const result = existingAmount - sumPrior - (salesSum - cashOutSum);
+        return <div>{Math.round(result * 100) / 100}</div>;
       },
     },
     {

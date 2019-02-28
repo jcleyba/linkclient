@@ -9,7 +9,7 @@ import SalesDetailTable from '../../components/tables/SalesDetailsTable';
 import { Context } from '../../app/App';
 
 import ErrorMessage from '../../components/ErrorMessage';
-import { SALESBYRANGE_QUERY } from '../../queries/sales';
+import { SALES_QUERY } from '../../queries/sales';
 import { SALEDETAILS_QUERY } from '../../queries/salesdetails';
 import { isAdmin } from '../../utils';
 
@@ -20,8 +20,9 @@ function SalesReports(props) {
   const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const { user } = useContext(Context);
 
-  const query = !id ? SALESBYRANGE_QUERY : SALEDETAILS_QUERY;
-  const queryProp = !id ? 'salesbyrange' : 'saledetails';
+  const query = id ? SALEDETAILS_QUERY : SALES_QUERY;
+  const queryProp = id ? 'saledetails' : 'sales';
+  const type = id && match.path.includes('types');
 
   const handleChangeStart = date => {
     let startDate = date;
@@ -87,27 +88,30 @@ function SalesReports(props) {
             id,
             from: startDate.toISOString(),
             to: endDate.toISOString(),
+            type,
           }}
           fetchPolicy="cache-and-network"
         >
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return <ErrorMessage error={error} />;
-            if (!data[queryProp]) return 'Error';
+
+            const trueData = data[queryProp];
+            if (!trueData) return 'Error de datos';
 
             return (
               <>
                 <Segment>
                   Total vendido:{' '}
                   <Label size="large" circular>
-                    ${data[queryProp].sum || 0}
+                    ${trueData.sum || 0}
                   </Label>
                   Cantidad de ventas:{' '}
                   <Label size="large" circular>
-                    {data[queryProp].sales.length || 0}
+                    {trueData.sales.length || 0}
                   </Label>
                 </Segment>
-                <Segment>{renderTable(data[queryProp].sales)}</Segment>
+                <Segment>{renderTable(trueData.sales)}</Segment>
               </>
             );
           }}
