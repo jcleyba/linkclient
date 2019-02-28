@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { Input, Card } from 'semantic-ui-react';
@@ -19,6 +19,10 @@ const AddSale = props => {
       return prod.codProduct === product.codProduct;
     });
   };
+
+  useEffect(() => {
+    inputEl.focus();
+  }, []);
 
   const reset = () => {
     setTerm('');
