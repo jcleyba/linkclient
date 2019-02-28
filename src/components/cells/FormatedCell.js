@@ -2,7 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 
 const CenteredCell = function(prop) {
-  return <div style={{ textAlign: 'center' }}>{prop.value}</div>;
+  return <div style={{ textAlign: 'center' }}>{prop.value || prop.children}</div>;
 };
 
 const DateFormatCell = function(prop) {
@@ -10,7 +10,7 @@ const DateFormatCell = function(prop) {
 };
 
 const MoneyCell = function(prop) {
-  return <div>{'$' + prop.value}</div>;
+    return <div>{'$' + prop.value}</div>;
 };
 
 export { CenteredCell, DateFormatCell, MoneyCell };

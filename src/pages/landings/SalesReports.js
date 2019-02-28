@@ -4,20 +4,24 @@ import { Header, Segment, Label } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import { isAfter, isBefore, startOfDay, endOfDay } from 'date-fns';
 
-import SaleTable from '../../components/tables/SaleTable';
+import SalesTable from '../../components/tables/SalesTable';
+import SalesDetailTable from '../../components/tables/SalesDetailsTable';
 import { Context } from '../../app/App';
 
 import ErrorMessage from '../../components/ErrorMessage';
 import { SALESBYRANGE_QUERY } from '../../queries/sales';
+import { SALEDETAILS_QUERY } from '../../queries/salesdetails';
 import { isAdmin } from '../../utils';
 
 function SalesReports(props) {
   const { match } = props;
   const { id } = match.params;
-  const isProductTypeQuery = match.path.includes('product-types');
   const [startDate, setStartDate] = useState(startOfDay(new Date()));
   const [endDate, setEndDate] = useState(endOfDay(new Date()));
   const { user } = useContext(Context);
+
+  const query = !id ? SALESBYRANGE_QUERY : SALEDETAILS_QUERY;
+  const queryProp = !id ? 'salesbyrange' : 'saledetails';
 
   const handleChangeStart = date => {
     let startDate = date;
@@ -38,8 +42,14 @@ function SalesReports(props) {
 
     setEndDate(endDate);
   };
+  const renderTable = sales => {
+    if (!id) {
+      return <SalesTable data={sales || []} />;
+    }
 
-  const renderTable = () => {
+    return <SalesDetailTable data={sales || []} />;
+  };
+  const renderPage = () => {
     if (!isAdmin(user)) {
       return 'Usuario no autorizado';
     }
@@ -72,9 +82,7 @@ function SalesReports(props) {
           </Label>
         </div>
         <Query
-          query={
-            isProductTypeQuery ? SALESBYRANGE_QUERY : SALESBYRANGE_QUERY //Aca va la query para product type
-          }
+          query={query}
           variables={{
             id,
             from: startDate.toISOString(),
@@ -85,23 +93,21 @@ function SalesReports(props) {
           {({ loading, error, data }) => {
             if (loading) return 'Loading...';
             if (error) return <ErrorMessage error={error} />;
-            if (!data.salesbyrange) return 'Error';
+            if (!data[queryProp]) return 'Error';
 
             return (
               <>
                 <Segment>
                   Total vendido:{' '}
                   <Label size="large" circular>
-                    ${data.salesbyrange.sum || 0}
+                    ${data[queryProp].sum || 0}
                   </Label>
                   Cantidad de ventas:{' '}
                   <Label size="large" circular>
-                    {data.salesbyrange.sales.length || 0}
+                    {data[queryProp].sales.length || 0}
                   </Label>
                 </Segment>
-                <Segment>
-                  <SaleTable data={data.salesbyrange.sales || []} />
-                </Segment>
+                <Segment>{renderTable(data[queryProp].sales)}</Segment>
               </>
             );
           }}
@@ -110,7 +116,7 @@ function SalesReports(props) {
     );
   };
 
-  return renderTable();
+  return renderPage();
 }
 
 export default SalesReports;
