@@ -50,6 +50,7 @@ const AddSale = props => {
                     productAdded={checkExistingProduct(item, cart)}
                     key={index}
                     product={item}
+                    focus={index === 0}
                     onSelect={product =>
                       addProductToCart(cart, product, setCart)
                     }
