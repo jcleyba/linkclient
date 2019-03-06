@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { Mutation } from 'react-apollo';
 import { PRODUCTS_BULK_MUTATION } from '../../queries/products';
 
@@ -7,6 +7,7 @@ function BulkUpdateForm(props) {
   const [stock, setStock] = useState('');
   const [salePrice, setSalePrice] = useState('');
   const [costPrice, setCostPrice] = useState('');
+  const [lower, setLower] = useState(0);
 
   const updateData = () => {
     let data = props.data || [];
@@ -28,7 +29,8 @@ function BulkUpdateForm(props) {
     }
     if (salePrice) {
       data = data.map(item => {
-        item.salePrice = (item.salePrice * (100 + salePrice)) / 100;
+        const calculatedSalePrice = lower ? 100 - salePrice : 100 + salePrice;
+        item.salePrice = (item.salePrice * calculatedSalePrice) / 100;
 
         return item;
       });
@@ -81,6 +83,12 @@ function BulkUpdateForm(props) {
                   min="0"
                   value={salePrice}
                   onChange={e => setSalePrice(parseFloat(e.target.value))}
+                />
+                <Checkbox
+                  label="Bajar precio"
+                  onChange={(e, data) => {
+                    setLower(data.checked);
+                  }}
                 />
               </Form.Field>
               <Form.Field>
