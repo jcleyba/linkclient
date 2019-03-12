@@ -30,7 +30,9 @@ function BulkUpdateForm(props) {
     if (salePrice) {
       data = data.map(item => {
         const calculatedSalePrice = lower ? 100 - salePrice : 100 + salePrice;
-        item.salePrice = (item.salePrice * calculatedSalePrice) / 100;
+        item.salePrice = +parseFloat(
+          (item.salePrice * calculatedSalePrice) / 100
+        ).toFixed(2);
 
         return item;
       });
@@ -38,7 +40,9 @@ function BulkUpdateForm(props) {
 
     if (costPrice) {
       data = data.map(item => {
-        item.costPrice = (item.costPrice * (100 + salePrice)) / 100;
+        item.costPrice = +parseFloat(
+          (item.costPrice * (100 + costPrice)) / 100
+        ).toFixed(2);
 
         return item;
       });
