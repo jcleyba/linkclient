@@ -123,6 +123,14 @@ function ProductsTable(props) {
         toggleAll={toggleAll}
         toggleSelection={toggleSelection}
         isSelected={isSelected}
+        getTrProps={(state, rowInfo, column, instance) => {
+          return {
+            style: {
+              // Setting opacity to row if product is not available
+              opacity: rowInfo && rowInfo.original.available ? 1 : 0.3,
+            },
+          };
+        }}
       />
     </>
   );

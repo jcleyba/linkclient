@@ -9,6 +9,7 @@ export const PRODUCTS_QUERY = gql`
       stock
       salePrice
       costPrice
+      available
     }
   }
 `;
@@ -24,6 +25,7 @@ export const PRODUCT_QUERY = gql`
       id_Provider
       salePrice
       costPrice
+      available
     }
   }
 `;
@@ -62,6 +64,7 @@ export const PRODUCTS_MUTATION = gql`
     $minimumStock: Float
     $salePrice: Float!
     $costPrice: Float!
+    $available: Boolean
   ) {
     products(
       id: $id
@@ -73,6 +76,7 @@ export const PRODUCTS_MUTATION = gql`
       minimumStock: $minimumStock
       salePrice: $salePrice
       costPrice: $costPrice
+      available: $available
     ) {
       id
     }

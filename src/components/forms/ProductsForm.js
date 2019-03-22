@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Radio } from 'semantic-ui-react';
 import ProvidersSelect from '../selects/ProvidersSelect';
 import ProductTypesSelect from '../selects/ProductTypesSelect';
 
@@ -14,6 +14,7 @@ function ProductsForm(props) {
     costPrice = '',
     id_Provider = '',
     id_ProductType = '',
+    available = '',
   } = props.initialValues;
   const [state, setState] = useState({
     stock,
@@ -24,6 +25,7 @@ function ProductsForm(props) {
     costPrice,
     id_Provider,
     id_ProductType,
+    available,
   });
 
   const setProvider = provider => {
@@ -36,6 +38,10 @@ function ProductsForm(props) {
 
   const onInputChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
+  };
+
+  const onToggleChange = (e, data) => {
+    setState({ ...state, available: data.checked });
   };
 
   const onSubmit = () => {
@@ -123,6 +129,10 @@ function ProductsForm(props) {
           setProductType={setProductType}
         />
       </Form.Group>
+      <Form.Field>
+        <label>Disponible</label>
+        <Radio toggle checked={state.available} onChange={onToggleChange} />
+      </Form.Field>
       <Button
         primary
         type="submit"
