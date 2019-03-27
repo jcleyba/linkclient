@@ -9,7 +9,7 @@ class AddProduct extends React.Component {
   state = {};
 
   onCompleted = data => {
-    this.props.history.push('/products');
+    this.props.history.goBack();
   };
 
   onSubmit = (state, mutation) => {
