@@ -131,7 +131,7 @@ function ProductsForm(props) {
       </Form.Group>
       <Form.Field>
         <label>Disponible</label>
-        <Radio toggle checked={state.available} onChange={onToggleChange} />
+        <Radio toggle checked={!!state.available} onChange={onToggleChange} />
       </Form.Field>
       <Button
         primary

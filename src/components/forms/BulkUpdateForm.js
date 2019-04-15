@@ -13,7 +13,7 @@ function BulkUpdateForm(props) {
     let data = props.data || [];
 
     data = data.map(item => {
-      const { __typename, ...other } = item;
+      const { __typename, available, ...other } = item;
       return {
         ...other,
         id: parseInt(item.id),
